@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
+import DashboardScreen from './screens/DashboardScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
 export default function App() {

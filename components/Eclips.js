@@ -3,11 +3,11 @@ import { View, StyleSheet } from 'react-native';
 
 import colors from '../config/colors'
 
-function Eclips(props) {
+function Eclips({color = colors.secondary}) {
   return (
     <View style={styles.container}>
-        <View style={styles.eclips1} />
-        <View style={styles.eclips2} />
+        <View style={[styles.eclips1, {backgroundColor: color}]} />
+        <View style={[styles.eclips2, {backgroundColor: color}]} />
     </View>
   );
 }
@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
       position: 'relative',
       left: 30,
       top: -30,
-      opacity: .5,
-      backgroundColor: colors.secondary
+      opacity: .5
     },
     eclips2: {
         width: 200,
@@ -35,8 +34,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         top: -160,
         left: -30,
-        opacity: .5,
-    backgroundColor: colors.secondary
+        opacity: .5
   }
 });
 

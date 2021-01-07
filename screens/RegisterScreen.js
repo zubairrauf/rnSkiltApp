@@ -37,7 +37,7 @@ function RegisterScreen(props) {
 
   return (
     <Screen style={styles.container}>
-        <Eclips/>
+        <Eclips />
         <AppText style={styles.heading}>Velkommen om bord</AppText>
         <AppText>Vennligst registrer deg</AppText>
         <Image source={require('../assets/images/kid-with-car.png')} style={styles.image}/>
