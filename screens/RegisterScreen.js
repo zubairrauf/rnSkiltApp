@@ -9,7 +9,7 @@ import Screen from '../components/Screen'
 import AppTextInput from '../components/form/AppTextInput'
 
 
-function RegisterScreen(props) {
+function RegisterScreen({ navigation }) {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     
@@ -55,7 +55,10 @@ function RegisterScreen(props) {
         <View style={styles.button} >
             <AppButton 
                 title="Registrer" 
-                onPress={() => storeData({name, email})}
+                onPress={() => {
+                    storeData({name, email})
+                    navigation.navigate("Dashboard")
+                }}
             />
         </View>
     </Screen>
