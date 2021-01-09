@@ -9,18 +9,16 @@ import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
 import colors from '../config/colors';
 
-//Reading data from asycStorage
-//TODO: Move this function to the dashboard screen to show the name
-
-
 function DashboardScreen(props) {
     const [name, setName] = useState();
-    
-    //Get the name from AsyncStorage
+
+    //Reading the name from AsynStorage and updating the name state.
     const getName = async (key) => {
       try {
-          const value = await AsyncStorage.getItem(key)
-          setName(value)
+          const jsonValue = await AsyncStorage.getItem(key)
+          const value = JSON.parse(jsonValue)
+          console.log(value)
+          setName(value.name)
       } catch (error) {
           console.error(error)
       }
@@ -28,7 +26,7 @@ function DashboardScreen(props) {
 
     //Run the getName on component load
     useEffect(() => {
-        getName('user')
+        getName('kivName')
     }, [])
 
   return (

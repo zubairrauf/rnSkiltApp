@@ -6,7 +6,7 @@ import AppText from '../components/AppText'
 import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
 
-function SplashScreen(props) {
+function SplashScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
         <Eclips />
@@ -14,7 +14,10 @@ function SplashScreen(props) {
         <AppText style={styles.heading}>Kjør i vei</AppText>
         <AppText>alt om trafikkskilt</AppText>
         <View style={styles.button} >
-            <AppButton title="Start"/>
+            <AppButton 
+              title="Start"
+              onPress={() => navigation.navigate('Register')}
+            />
         </View>
     </Screen>
   );

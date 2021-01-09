@@ -23,18 +23,6 @@ function RegisterScreen({ navigation }) {
         }
     }
 
-    //Reading data from asycStorage
-    //TODO: Move this function to the dashboard screen to show the name
-    // const getData = async () => {
-    //     try {
-    //         const jsonValue = await AsyncStorage.getItem('kivName')
-    //         if(jsonValue !== null) console.log('Data from local storage: ', JSON.parse(jsonValue).name)
-    //         else console.log('No value in local storage')
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
-
   return (
     <Screen style={styles.container}>
         <Eclips />
