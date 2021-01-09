@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,8 +9,9 @@ import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
 import colors from '../config/colors';
 
-function DashboardScreen(props) {
+function DashboardScreen({ navigation }) {
     const [name, setName] = useState();
+    const categories = require("../data/categoriesData.json")
 
     //Reading the name from AsynStorage and updating the name state.
     const getName = async (key) => {
@@ -57,12 +58,16 @@ function DashboardScreen(props) {
                 </View>
             </View>
         </View>
-        <Screen style={styles.categoryContainer}>
-          <CategoryBox title="Fareskilt" subTitle="Antall: 15"/>
-          <CategoryBox title="Vikepliktsskilt" subTitle="Antall: 8"/>
-          <CategoryBox title="Vikepliktsskilt" subTitle="Antall: 8"/>
-          <CategoryBox title="Vikepliktsskilt" subTitle="Antall: 8"/>
-        </Screen>
+        <ScrollView contentContainerStyle={styles.ScrollContentContainer}>
+          {categories.map(category => (
+            <CategoryBox 
+              key={category.id} 
+              title={category.name}
+              subTitle={`Antall: ${category.number}`}
+              onPress={() => navigation.navigate('Signs', {slug: category.slug})}
+            />
+          ))}
+        </ScrollView>
       </>
   );
 }
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 50,
   },
-  categoryContainer: {
+  ScrollContentContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around'

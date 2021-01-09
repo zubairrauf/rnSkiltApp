@@ -1,0 +1,51 @@
+[
+    {
+      "id": "1",
+      "name": "Fareskilt",
+      "slug": "danger",
+      "number": 15
+    },
+    {
+      "id": "2",
+      "name": "Vikepliktsskilt",
+      "slug": "yield",
+      "number": 15
+    },
+    {
+      "id": "3",
+      "name": "Forbudsskilt",
+      "slug": "forbud",
+      "number": 15
+    },
+    {
+      "id": "4",
+      "name": "Påbudsskilt",
+      "slug": "påbud",
+      "number": 15
+    },
+    {
+      "id": "5",
+      "name": "Opplysningsskilt",
+      "slug": "opplysning",
+      "number": 15
+    },
+    {
+      "id": "6",
+      "name": "Serviceskilt",
+      "slug": "service",
+      "number": 15
+    },
+    {
+      "id": "7",
+      "name": "Veivisningsskilt",
+      "slug": "veivisning",
+      "number": 15
+    },
+    {
+      "id": "8",
+      "name": "Underskilt",
+      "slug": "underskilt",
+      "number": 15
+    }
+  ]
+  
