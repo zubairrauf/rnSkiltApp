@@ -18,6 +18,31 @@ function SignsList({ slug }) {
         console.log('SignsList loaded')
     }, [])
 
+    //Store mySings array to AsyncStorage
+    const storeSigns = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('kivMySigns', jsonValue)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    //Read mySigns from AsyncStorage
+    const getSigns = async (key) => {
+        try {
+            const jsonValue = AsyncStorage.getItem(key)
+            return jsonValue !== null ? jsonValue : null
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    //Handle onPress for + icon
+    const handleOnPress = (item) => {
+        setMySigns((prevSigns) => [...prevSigns, item])
+        storeSigns(mySigns)
+    }
 
     //generate list of signs to display based on the category
     const signsToDisplay = signsData.map((sign) => {
@@ -27,21 +52,11 @@ function SignsList({ slug }) {
                     key={sign.id}
                     title={sign.name}
                     image={sign.img}
-                    onPress={() => console.log(sign.id)}
+                    onPress={() => handleOnPress(sign.id)} //For + icon
                 />
             );
         }
       });
-
-      //Store signs in AsynStorage when user click on the + icon
-      const storeSigns = async (value) => {
-          try {
-              const jsonValue = JSON.stringify(value)
-              await AsyncStorage.setItem('kivMySigns', jsonValue)
-          } catch (error) {
-              console.error(error)
-          }
-      }
 
   return (
       <ScrollView>
