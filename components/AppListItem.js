@@ -7,7 +7,7 @@ import AppText from "./AppText";
 import AppIcon from '../components/AppIcon'
 
 
-function AppListItem({ title, subTitle, image, onPress }) {
+function AppListItem({ title, subTitle, image, icon, onPress }) {
   return (
     <View style={styles.container}>
         {image && <Image style={styles.image} source={image} />}
@@ -17,7 +17,7 @@ function AppListItem({ title, subTitle, image, onPress }) {
         </View>
         <View style={styles.iconContainer}>
             <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-                <AppIcon name='plus' />
+                <AppIcon name={icon} />
             </TouchableHighlight>
         </View>
     </View>

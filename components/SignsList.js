@@ -47,11 +47,16 @@ function SignsList({ slug, mySigns, setMySigns }) {
         }
     }
 
-    //Handle onPress for + icon
+    //Handle onPress for + and - icon
     const handleOnPress = async (item) => {
-        setMySigns((prevSigns) => [...prevSigns, item])
-        // await storeSigns(mySigns)
-
+        if (mySigns.indexOf(item) < 0) {
+            setMySigns((prevSigns) => [...prevSigns, item])
+        } else {
+            let array = [...mySigns] //make a separate copy of the mySigns state array
+            let index = mySigns.indexOf(item) //Get the first index of the item
+            array.splice(index, 1) //Remove the item from the temp array
+            setMySigns(array) //Set the mySigns with updated array
+        }
     }
 
     //generate list of signs to display based on the category
@@ -62,6 +67,7 @@ function SignsList({ slug, mySigns, setMySigns }) {
                     key={sign.id}
                     title={sign.name}
                     image={sign.img}
+                    icon = {mySigns.indexOf(sign.id) < 0 ? 'plus' : 'minus'}
                     onPress={() => handleOnPress(sign.id)} //For + icon
                 />
             );
