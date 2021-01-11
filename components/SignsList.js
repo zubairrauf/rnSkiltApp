@@ -7,15 +7,15 @@ import AppListItem from '../components/AppListItem'
 import AppIcon from '../components/AppIcon'
 import { useEffect } from 'react/cjs/react.development';
 
-function SignsList({ slug }) {
-    //TODO: When someone clicks on +, push the sign to mySigns state array
-    // and update the AsyncStorage. On component load, get the mySigns
-    //from AsynStorage and update the mySigns state.
+let mySignsArray = [] //Temporarily holds the signs
 
+function SignsList({ slug }) {
     const [ mySigns, setMySigns ] = useState([])
-    //Update the mySigns state on component load 
+
+    //Update the mySigns state on component load   
     useEffect(() => {
         console.log('SignsList loaded')
+        getSigns('kivMySigns')
     }, [])
 
     //Store mySings array to AsyncStorage
@@ -31,8 +31,11 @@ function SignsList({ slug }) {
     //Read mySigns from AsyncStorage
     const getSigns = async (key) => {
         try {
-            const jsonValue = AsyncStorage.getItem(key)
-            return jsonValue !== null ? jsonValue : null
+            const jsonValue = await AsyncStorage.getItem(key)
+            const value =  jsonValue !== null ? jsonValue : null
+            setMySigns(value)
+            console.log('Storge onLoad', value)
+            console.log('State onLoad', mySigns)
         } catch (error) {
             console.error(error)
         }
@@ -40,8 +43,11 @@ function SignsList({ slug }) {
 
     //Handle onPress for + icon
     const handleOnPress = (item) => {
-        setMySigns((prevSigns) => [...prevSigns, item])
+        mySignsArray.push(item)
+        setMySigns(mySignsArray)
         storeSigns(mySigns)
+        console.log('Array', mySignsArray)
+        console.log('State', mySigns)
     }
 
     //generate list of signs to display based on the category
