@@ -7,15 +7,13 @@ import AppListItem from '../components/AppListItem'
 import AppIcon from '../components/AppIcon'
 import { useEffect } from 'react/cjs/react.development';
 
-let mySignsArray = [] //Temporarily holds the signs
-
 function SignsList({ slug }) {
     const [ mySigns, setMySigns ] = useState([])
+    let savedSigns = [] //Temporarily holds the signs
 
-    //Update the mySigns state on component load   
+    //Read the signs from AsyncStorage
     useEffect(() => {
-        console.log('SignsList loaded')
-        getSigns('kivMySigns')
+        getSigns()
     }, [])
 
     //Store mySings array to AsyncStorage
@@ -28,26 +26,29 @@ function SignsList({ slug }) {
         }
     }
 
-    //Read mySigns from AsyncStorage
-    const getSigns = async (key) => {
+    //Read mySigns from AsyncStorage and update the storeSigns array
+    const getSigns = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem(key)
-            const value =  jsonValue !== null ? jsonValue : null
-            setMySigns(value)
-            console.log('Storge onLoad', value)
-            console.log('State onLoad', mySigns)
+            const jsonValue = await AsyncStorage.getItem('kivMySigns')
+            const parsedValue = jsonValue !== null ? JSON.parse(jsonValue) : null
+            if(parsedValue !== null && parsedValue.length != 0) {
+                console.log('parsedValue not null', parsedValue)
+                setMySigns(parsedValue) //This creates error when parsedValue is null
+            }
+            else {
+                console.log('parsedvalue null', parsedValue)
+            }
+
         } catch (error) {
             console.error(error)
         }
     }
 
     //Handle onPress for + icon
-    const handleOnPress = (item) => {
-        mySignsArray.push(item)
-        setMySigns(mySignsArray)
-        storeSigns(mySigns)
-        console.log('Array', mySignsArray)
-        console.log('State', mySigns)
+    const handleOnPress = async (item) => {
+        setMySigns(prevSigns => [...prevSigns, item])
+        await storeSigns(mySigns)
+        console.log('My Signs', mySigns)
     }
 
     //generate list of signs to display based on the category
