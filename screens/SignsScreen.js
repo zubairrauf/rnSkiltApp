@@ -1,20 +1,18 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet } from 'react-native';
 
-import AppButton from '../components/AppButton'
-import AppText from '../components/AppText'
 import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
 import SignsList from '../components/SignsList'
 import AppHeader from '../components/AppHeader'
 
 function SignsScreen({ route }) {
-    console.log(route)
+  const [ mySigns, setMySigns ] = useState([])
   return (
     <Screen style={styles.container}>
         <Eclips />
         <AppHeader title={route.params.slug} />
-        <SignsList slug={route.params.slug}/>
+        <SignsList slug={route.params.slug} mySigns={mySigns} setMySigns={setMySigns}/>
     </Screen>
   );
 }

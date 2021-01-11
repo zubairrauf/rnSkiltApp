@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { signsData } from '../data/signsData'
 import AppListItem from '../components/AppListItem'
-import AppIcon from '../components/AppIcon'
 import { useEffect } from 'react/cjs/react.development';
 
-function SignsList({ slug }) {
-    const [ mySigns, setMySigns ] = useState([])
-    let savedSigns = [] //Temporarily holds the signs
+function SignsList({ slug, mySigns, setMySigns }) {
 
-    //Read the signs from AsyncStorage
+    //Get the signs from AsyncStorage on load
     useEffect(() => {
         getSigns()
     }, [])
+
+    //Save Signs in AsynStorage on state change
+    useEffect(() => {
+        console.log('My Signs', mySigns)
+        storeSigns(mySigns)
+    }, [mySigns])
 
     //Store mySings array to AsyncStorage
     const storeSigns = async (value) => {
@@ -31,7 +34,7 @@ function SignsList({ slug }) {
         try {
             const jsonValue = await AsyncStorage.getItem('kivMySigns')
             const parsedValue = jsonValue !== null ? JSON.parse(jsonValue) : null
-            if(parsedValue !== null && parsedValue.length != 0) {
+            if(parsedValue !== null ) {
                 console.log('parsedValue not null', parsedValue)
                 setMySigns(parsedValue) //This creates error when parsedValue is null
             }
@@ -46,9 +49,9 @@ function SignsList({ slug }) {
 
     //Handle onPress for + icon
     const handleOnPress = async (item) => {
-        setMySigns(prevSigns => [...prevSigns, item])
-        await storeSigns(mySigns)
-        console.log('My Signs', mySigns)
+        setMySigns((prevSigns) => [...prevSigns, item])
+        // await storeSigns(mySigns)
+
     }
 
     //generate list of signs to display based on the category
