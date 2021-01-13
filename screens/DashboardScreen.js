@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {MySignsContext} from '../context/MySignsContext'
 import AppText from '../components/AppText'
 import CategoryBox from '../components/CategoryBox'
 import Eclips from '../components/Eclips'
@@ -54,7 +55,11 @@ function DashboardScreen({ navigation }) {
                       color={colors.dark}
                       style={styles.icon}
                     />
-                  <AppText>16 skilt lagret</AppText>
+                  <MySignsContext.Consumer>
+                    {({ mySigns }) => (
+                      <AppText>{`${mySigns.length} skilt lagret`}</AppText>
+                    )}  
+                  </MySignsContext.Consumer>  
                 </View>
             </View>
         </View>

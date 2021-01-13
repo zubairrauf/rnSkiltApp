@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { signsData } from '../data/signsData'
 import AppListItem from '../components/AppListItem'
-import { useEffect } from 'react/cjs/react.development';
 
 function SignsList({ slug, mySigns, setMySigns }) {
 
