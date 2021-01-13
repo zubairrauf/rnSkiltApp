@@ -57,7 +57,9 @@ function DashboardScreen({ navigation }) {
                     />
                   <MySignsContext.Consumer>
                     {({ mySigns }) => (
-                      <AppText>{`${mySigns.length} skilt lagret`}</AppText>
+                      <AppText onPress={() => navigation.navigate('Signs', {slug: "mySigns"})}>
+                        {`${mySigns.length} skilt lagret`}
+                      </AppText>
                     )}  
                   </MySignsContext.Consumer>  
                 </View>

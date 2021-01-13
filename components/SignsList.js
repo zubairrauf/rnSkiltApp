@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { signsData } from '../data/signsData'
@@ -58,20 +58,38 @@ function SignsList({ slug, mySigns, setMySigns }) {
         }
     }
 
-    //generate list of signs to display based on the category
-    const signsToDisplay = signsData.map((sign) => {
-        if(sign.category == slug) {
-            return (
-                <AppListItem 
-                    key={sign.id}
-                    title={sign.name}
-                    image={sign.img}
-                    icon = {mySigns.indexOf(sign.id) < 0 ? 'plus' : 'minus'}
-                    onPress={() => handleOnPress(sign.id)} //For + icon
-                />
-            );
-        }
-      });
+    //If slug is mySigns, generate a list of saved sings
+    let signsToDisplay = []
+    if(slug==='mySigns') {
+        signsToDisplay = signsData.map((sign) => {
+            if(mySigns.indexOf(sign.id) > -1) {
+                return (
+                    <AppListItem 
+                        key={sign.id}
+                        title={sign.name}
+                        image={sign.img}
+                        icon = {mySigns.indexOf(sign.id) < 0 ? 'plus' : 'minus'}
+                        onPress={() => handleOnPress(sign.id)} //For + icon
+                    />
+                );
+            }
+        });
+    } else {
+        //generate list of signs to display based on the category
+        signsToDisplay = signsData.map((sign) => {
+            if(sign.category == slug) {
+                return (
+                    <AppListItem 
+                        key={sign.id}
+                        title={sign.name}
+                        image={sign.img}
+                        icon = {mySigns.indexOf(sign.id) < 0 ? 'plus' : 'minus'}
+                        onPress={() => handleOnPress(sign.id)} //For + icon
+                    />
+                );
+            }
+        });
+    }
 
   return (
       <ScrollView>
