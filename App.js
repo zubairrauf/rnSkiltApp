@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 
 
+import {MySignsContextProvider} from './context/MySignsContext'
 import SplashScreen from './screens/SplashScreen'
 import RegisterScreen from './screens/RegisterScreen';
 import DashboardScreen from './screens/DashboardScreen';
@@ -26,7 +27,9 @@ const StackNavigator = () => (
 export default function App() {
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <MySignsContextProvider>
+        <StackNavigator />
+      </MySignsContextProvider>
     </NavigationContainer>
   );
 }
