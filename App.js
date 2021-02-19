@@ -9,6 +9,7 @@ import SplashScreen from './screens/SplashScreen'
 import RegisterScreen from './screens/RegisterScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import SignsScreen from './screens/SignsScreen';
+import QuizScreen from './screens/QuizScreen';
 
 const Stack = createStackNavigator()
 const StackNavigator = () => (
@@ -21,6 +22,7 @@ const StackNavigator = () => (
     <Stack.Screen name="Register" component={RegisterScreen}/>
     <Stack.Screen name="Dashboard" component={DashboardScreen}/>
     <Stack.Screen name="Signs" component={SignsScreen}/>
+    <Stack.Screen name="Quiz" component={QuizScreen}/>
   </Stack.Navigator>
 )
 

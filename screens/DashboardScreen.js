@@ -46,7 +46,7 @@ function DashboardScreen({ navigation }) {
                     color={colors.dark}
                     style={styles.icon}
                   />
-                  <AppText>100 poeng</AppText>
+                  <AppText onPress={() => navigation.navigate('Quiz', {slug: "mySigns"})}>100 poeng</AppText>
                 </View>
                 <View style={styles.statsBox}>
                   <MaterialCommunityIcons 
