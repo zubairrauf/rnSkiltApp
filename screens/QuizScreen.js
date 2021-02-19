@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
 import AppHeader from '../components/AppButton'
 import AppText from '../components/AppText'
@@ -20,7 +20,7 @@ function QuizScreen(props) {
     //Make random IDs
     useEffect(() => {
         //To generate random questions
-        for (let i=0; i<=numberOfQuestions; i++) {
+        for (let i=0; i<numberOfQuestions; i++) {
             randomQuestionIds.push(Math.floor(Math.random() * signsData.length) + 1)
         }   
     }, [])
@@ -35,17 +35,17 @@ function QuizScreen(props) {
    }, [randomQuestionIds])
 
    //Generate random wrong options
-   let tempArr = []
-   const generateRandomOptions = () => {
-        let randomId
-    for (let i=0; i<3; i++) { 
-        randomId = Math.floor(Math.random() * signsData.length) + 1
-        tempArr.push(signsData[randomId].name)
-    }
-    // setRandomOptions(tempArr)
-    console.log('Random options: ', tempArr)
-   }
-   generateRandomOptions();
+//    let tempArr = []
+//    const generateRandomOptions = () => {
+//         let randomId
+//     for (let i=0; i<3; i++) { 
+//         randomId = Math.floor(Math.random() * 55) + 1
+//         tempArr.push(signsData[randomId].name)
+//     }
+//     // setRandomOptions(tempArr)
+//     console.log('Random options: ', tempArr)
+//    }
+//    generateRandomOptions();
 
    //Button handlers
    const handleNextButton = ()  => {
@@ -61,9 +61,6 @@ function QuizScreen(props) {
         <AppHeader title='Skilt quiz'/>
         {questions[currentIndex] && <Image style={styles.image} source={questions[currentIndex].img} />}
         <AppText>{questions[currentIndex] ? questions[currentIndex].name : 'loading'}</AppText>
-        <AppText>{questions[currentIndex] ? tempArr[0] : 'loading'}</AppText>
-        <AppText>{questions[currentIndex] ? tempArr[1] : 'loading'}</AppText>
-        <AppText>{questions[currentIndex] ? tempArr[2] : 'loading'}</AppText>
         <AppButton 
             title="Forrige" 
             onPress={handlePrevButton}
