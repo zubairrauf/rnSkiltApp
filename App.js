@@ -12,7 +12,7 @@ export default function App() {
   return (
     <NavigationContainer theme={navigationTheme}>
       <MySignsContextProvider>
-        <AppNavigator />
+        <AuthNavigator />
       </MySignsContextProvider>
     </NavigationContainer>
   );
