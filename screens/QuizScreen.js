@@ -32,20 +32,20 @@ function QuizScreen(props) {
             setQuestions((prevQuestions) => [...prevQuestions, sign])
         } 
     })
+    console.log('Questions: ', questions)
    }, [randomQuestionIds])
 
    //Generate random wrong options
-//    let tempArr = []
-//    const generateRandomOptions = () => {
-//         let randomId
-//     for (let i=0; i<3; i++) { 
-//         randomId = Math.floor(Math.random() * 55) + 1
-//         tempArr.push(signsData[randomId].name)
-//     }
-//     // setRandomOptions(tempArr)
-//     console.log('Random options: ', tempArr)
-//    }
-//    generateRandomOptions();
+   let randomAnswers = []
+   const generateRandomOptions = () => {
+        let randomId1 = Math.floor(Math.random() * 55) + 1
+        let randomId2 = Math.floor(Math.random() * 55) + 1
+        let randomId3 = Math.floor(Math.random() * 55) + 1
+        randomAnswers.push(signsData[randomId1].name, signsData[randomId2].name, signsData[randomId3].name)
+    // setRandomOptions(tempArr)
+    console.log('Random options: ', randomAnswers)
+   }
+   generateRandomOptions();
 
    //Button handlers
    const handleNextButton = ()  => {
@@ -61,6 +61,9 @@ function QuizScreen(props) {
         <AppHeader title='Skilt quiz'/>
         {questions[currentIndex] && <Image style={styles.image} source={questions[currentIndex].img} />}
         <AppText>{questions[currentIndex] ? questions[currentIndex].name : 'loading'}</AppText>
+        <AppText>{questions[currentIndex] ? randomAnswers[0] : 'loading'}</AppText>
+        <AppText>{questions[currentIndex] ? randomAnswers[1] : 'loading'}</AppText>
+        <AppText>{questions[currentIndex] ? randomAnswers[2] : 'loading'}</AppText>
         <AppButton 
             title="Forrige" 
             onPress={handlePrevButton}
