@@ -36,35 +36,34 @@ function QuizScreen(props) {
     })   
     }, [randomQuestionIds])
 
-    //Generate random options
-    let randomAnswers = []
-    let randomId1, randomId2, randomId3
-    useEffect(() => {
-        randomId1 = Math.floor(Math.random() * signsData.length -1) + 1
-        randomId2 = Math.floor(Math.random() * signsData.length -1) + 1
-        randomId3 = Math.floor(Math.random() * signsData.length -1) + 1
-        randomAnswers.push(signsData[randomId1].name, signsData[randomId2].name, signsData[randomId3].name)
-        if (questions.length > 0) randomAnswers.push(questions[currentIndex].name)
-        randomAnswers = shuffleArray(randomAnswers)
-        setRandomOptions(randomAnswers)
-    }, [questions, currentIndex])
-
-    //Testing 
-    // let tempArr = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-    // let tempRand
+    //Generate random options, current working solution
+    // let randomAnswers = []
+    // let randomId1, randomId2, randomId3
     // useEffect(() => {
-    //     for (let i=0; i<3; i++) {
-    //         for(let j=1; j<15; j++) {
-    //             tempRand = Math.floor(Math.random() * signsData.length -1) + 1
-    //             tempArr[j].push(signsData[tempRand].name)
-    //             if (questions.length > 0) tempArr[j].push(questions[j].name)
-    //         }
-    //     }
-    //     console.log('THE ARR: ', tempArr)
-    //     // if (questions.length > 0) randomAnswers.push(questions[currentIndex].name)
-    //     // randomAnswers = shuffleArray(randomAnswers)
-    //     // setRandomOptions(randomAnswers)
+    //     randomId1 = Math.floor(Math.random() * signsData.length -1) + 1
+    //     randomId2 = Math.floor(Math.random() * signsData.length -1) + 1
+    //     randomId3 = Math.floor(Math.random() * signsData.length -1) + 1
+    //     randomAnswers.push(signsData[randomId1].name, signsData[randomId2].name, signsData[randomId3].name)
+    //     if (questions.length > 0) randomAnswers.push(questions[currentIndex].name)
+    //     randomAnswers = shuffleArray(randomAnswers)
+    //     setRandomOptions(randomAnswers)
     // }, [questions, currentIndex])
+
+    let allRandomAnswers = [] //holds all the random answer subarrays
+    let randomId
+    useEffect(() => {
+        for (let i=0; i<questions.length; i++) {
+            let randomAnswers = [] // holds random answer for one subarray
+            for (let j=0; j<3; j++) {
+                randomId = Math.floor(Math.random() * signsData.length -1) + 1
+                randomAnswers.push(signsData[randomId].name)
+            }
+            if (questions.length > 0) randomAnswers.push(questions[currentIndex].name)
+            randomAnswers = shuffleArray(randomAnswers)
+            allRandomAnswers.push(randomAnswers)
+        }
+        setRandomOptions(allRandomAnswers) //Updates the randomOptions state
+    }, [questions])
 
    //Button handlers
    const handleNextButton = ()  => {
@@ -99,7 +98,7 @@ function QuizScreen(props) {
 
    //Check if the answer is correct or incorrect
    const handleOptionTouch = (i) => {
-       if( randomOptions[i] === questions[currentIndex].name) {
+       if( randomOptions[currentIndex][i] === questions[currentIndex].name) {
            console.log('Answer: ', 'Correct')
            setScore(prevScore => prevScore +1)
         } else {
@@ -120,10 +119,10 @@ function QuizScreen(props) {
         <AppText style={styles.question}>{questions[currentIndex] ? 'Hva betyr dette skiltet?' : 'loading'}</AppText>
         {questions[currentIndex] && <Image style={styles.image} source={questions[currentIndex].img} />}
         <View style={styles.optionsContainer}>
-            <AppText onPress={() => handleOptionTouch(0)} style={styles.options}>{questions[currentIndex] ? randomOptions[0] : 'loading'}</AppText>
-            <AppText onPress={() => handleOptionTouch(1)} style={styles.options}>{questions[currentIndex] ? randomOptions[1] : 'loading'}</AppText>
-            <AppText onPress={() => handleOptionTouch(2)} style={styles.options}>{questions[currentIndex] ? randomOptions[2] : 'loading'}</AppText>
-            <AppText onPress={() => handleOptionTouch(3)} style={styles.options}>{questions[currentIndex] ? randomOptions[3] : 'loading'}</AppText>
+            <AppText onPress={() => handleOptionTouch(0)} style={styles.options}>{questions[currentIndex] ? randomOptions[currentIndex][0] : 'loading'}</AppText>
+            <AppText onPress={() => handleOptionTouch(1)} style={styles.options}>{questions[currentIndex] ? randomOptions[currentIndex][1] : 'loading'}</AppText>
+            <AppText onPress={() => handleOptionTouch(2)} style={styles.options}>{questions[currentIndex] ? randomOptions[currentIndex][2] : 'loading'}</AppText>
+            <AppText onPress={() => handleOptionTouch(3)} style={styles.options}>{questions[currentIndex] ? randomOptions[currentIndex][3] : 'loading'}</AppText>
         </View>
         <View style={styles.buttonContainer}>
             <AppButton
