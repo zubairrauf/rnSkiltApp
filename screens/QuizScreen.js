@@ -19,6 +19,8 @@ function QuizScreen(props) {
   const [randomOptions, setRandomOptions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [correctIndex, setCorrectIndex] = useState([]);
+  const [incorrectIndex, setIncorrectIndex] = useState([]);
 
   //Select random signs and put them in questions
   let numberOfQuestions = 15;
@@ -42,18 +44,6 @@ function QuizScreen(props) {
   }, [randomQuestionIds]);
 
   //Generate random options, current working solution
-  // let randomAnswers = []
-  // let randomId1, randomId2, randomId3
-  // useEffect(() => {
-  //     randomId1 = Math.floor(Math.random() * signsData.length -1) + 1
-  //     randomId2 = Math.floor(Math.random() * signsData.length -1) + 1
-  //     randomId3 = Math.floor(Math.random() * signsData.length -1) + 1
-  //     randomAnswers.push(signsData[randomId1].name, signsData[randomId2].name, signsData[randomId3].name)
-  //     if (questions.length > 0) randomAnswers.push(questions[currentIndex].name)
-  //     randomAnswers = shuffleArray(randomAnswers)
-  //     setRandomOptions(randomAnswers)
-  // }, [questions, currentIndex])
-
   let allRandomAnswers = []; //holds all the random answer subarrays
   let randomId;
   useEffect(() => {
@@ -102,8 +92,12 @@ function QuizScreen(props) {
   //Check if the answer is correct or incorrect
   const handleOptionTouch = (i) => {
     if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
-      console.log("Answer: ", "Correct");
+      setCorrectIndex((prevCorrectIndex) => [
+        ...prevCorrectIndex,
+        currentIndex,
+      ]);
       setScore((prevScore) => prevScore + 1);
+      console.log("CorrectIndex: ", correctIndex);
     } else {
       console.log("Answer: ", "Incorrect");
     }
