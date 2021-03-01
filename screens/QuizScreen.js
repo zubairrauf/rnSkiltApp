@@ -4,6 +4,7 @@ import {
   Image,
   View,
   TouchableWithoutFeedback,
+  Vibration
 } from "react-native";
 
 import AppHeader from "../components/AppButton";
@@ -11,39 +12,47 @@ import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
 import { signsData } from "../data/signsData";
-import { shuffleArray } from "../utils/helperFunctions";
+import { shuffleArray, isEmpty } from "../utils/helperFunctions";
+import QuizOptions from '../components/QuizOptions'
 import colors from "../config/colors";
+import Eclips from '../components/Eclips'
 
 function QuizScreen(props) {
-  const [questions, setQuestions] = useState([]);
-  const [randomOptions, setRandomOptions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [questions, setQuestions] = useState([]); //Holds all quiz questions
+  const [randomOptions, setRandomOptions] = useState([]); //1 correct and 3 random wrong answers
+  const [currentIndex, setCurrentIndex] = useState(0); 
   const [score, setScore] = useState(0);
+  const [previousButtonDisabled, setPreviousButtonDisabled] = useState(true)
+  const [previousNextDisabled, setNextButtonDisabled] = useState(false)
   const [correctIndex, setCorrectIndex] = useState([]);
   const [incorrectIndex, setIncorrectIndex] = useState([]);
+  const [resultIcons, setResultIcons] = useState([])
+  const [resultColor, setResultColor] = useState('')
 
   //Select random signs and put them in questions
   let numberOfQuestions = 15;
   let randomQuestionIds = [];
 
-  //Make random IDs
+  //Make random IDs on component mount
   useEffect(() => {
-    //To generate random questions
-    for (let i = 0; i < numberOfQuestions; i++) {
-      randomQuestionIds.push(Math.floor(Math.random() * signsData.length) + 1);
+    while(randomQuestionIds.length < numberOfQuestions) {
+        let r = Math.floor(Math.random() * signsData.length) + 1;
+        if(randomQuestionIds.indexOf(r) === -1) randomQuestionIds.push(r)
     }
   }, []);
 
   //Grab signs based on randomQuestionIds and update the questions state
   useEffect(() => {
-    signsData.map((sign) => {
-      if (randomQuestionIds.includes(parseInt(sign.id))) {
-        setQuestions((prevQuestions) => [...prevQuestions, sign]); //TODO: Change how question state is updated.
+      if(questions.length === 0) {
+          signsData.map((sign) => {
+            if (randomQuestionIds.includes(parseInt(sign.id))) {
+              setQuestions((prevQuestions) => [...prevQuestions, sign]); //TODO: Change how question state is updated.
+            }
+          });
       }
-    });
   }, [randomQuestionIds]);
 
-  //Generate random options, current working solution
+  //Generate random options
   let allRandomAnswers = []; //holds all the random answer subarrays
   let randomId;
   useEffect(() => {
@@ -60,6 +69,52 @@ function QuizScreen(props) {
     setRandomOptions(allRandomAnswers); //Updates the randomOptions state
   }, [questions]);
 
+    //Check if the answer is correct or incorrect
+    const handleOptionTouch = (i) => {
+        if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
+            setCorrectIndex((prevCorrectIndex) => [
+            ...prevCorrectIndex,
+            currentIndex,
+            ]);
+            setScore((prevScore) => prevScore + 1);
+            console.log("CorrectIndex: ", correctIndex);
+        } else {
+            setIncorrectIndex((prevIncorrectIndex) => [
+                ...prevIncorrectIndex,
+                currentIndex,
+                ]);
+            Vibration.vibrate(300)
+            console.log("Answer: ", "Incorrect");
+        }
+        setTimeout(() => {
+            quizNavigation("next");
+        }, 500);
+    };
+
+    //Handle show correct or incorrect icon
+    useEffect(() => {
+        handleResultFeedback()
+    }, [correctIndex, incorrectIndex, currentIndex]) 
+
+    let icons = []
+    const handleResultFeedback = () => {
+        if(correctIndex.indexOf(currentIndex) !== -1 || incorrectIndex.indexOf(currentIndex) !== -1) {
+            for (let i=0; i < randomOptions[currentIndex].length; i++) {
+                if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
+                    icons[i] = 'correct'
+                } else {
+                    icons[i] = 'incorrect'
+                }
+            }
+            setResultIcons(icons);
+        } else {
+            setResultIcons([]);
+            setResultColor(colors.light)
+        }
+        if(correctIndex.indexOf(currentIndex) !== -1) setResultColor(colors.primary)
+        else if(incorrectIndex.indexOf(currentIndex) !== -1) setResultColor(colors.danger)
+    }
+
   //Button handlers
   const handleNextButton = () => {
     quizNavigation("next");
@@ -70,7 +125,7 @@ function QuizScreen(props) {
 
   //Handle next or previouse question
   const quizNavigation = (direction) => {
-    if (direction === "next") {
+      if (direction === "next") {
       setCurrentIndex((prevIndex) => {
         if (prevIndex < questions.length - 1) {
           return prevIndex + 1;
@@ -88,30 +143,21 @@ function QuizScreen(props) {
       });
     }
   };
-
-  //Check if the answer is correct or incorrect
-  const handleOptionTouch = (i) => {
-    if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
-      setCorrectIndex((prevCorrectIndex) => [
-        ...prevCorrectIndex,
-        currentIndex,
-      ]);
-      setScore((prevScore) => prevScore + 1);
-      console.log("CorrectIndex: ", correctIndex);
-    } else {
-      console.log("Answer: ", "Incorrect");
-    }
-    setTimeout(() => {
-      quizNavigation("next");
-    }, 300);
-  };
+  
+  //TODO: Figure out where to use handleDisableButton
+//   const handleDisableButton = () => {
+//     if(currentIndex === 0) setPreviousButtonDisabled(true)
+//     else setPreviousButtonDisabled(false)
+//     if(currentIndex -1 < questions.length) setNextButtonDisabled(false)
+//     else setNextButtonDisabled(true)
+//   }
 
   return (
     <Screen style={styles.container}>
-      <AppHeader title="Skilt quiz" />
+        <Eclips />
       <View style={styles.statsContainer}>
-        <AppText>Poeng: {score}</AppText>
-        <AppText>
+        <AppText style={styles.stats}>Poeng: {score}</AppText>
+        <AppText style={styles.stats}>
           {currentIndex + 1} av {questions.length}
         </AppText>
       </View>
@@ -122,28 +168,33 @@ function QuizScreen(props) {
         <Image style={styles.image} source={questions[currentIndex].img} />
       )}
       <View style={styles.optionsContainer}>
-        <AppText onPress={() => handleOptionTouch(0)} style={styles.options}>
+        <QuizOptions onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
           {randomOptions[currentIndex]
             ? randomOptions[currentIndex][0]
             : "loading"}
-        </AppText>
-        <AppText onPress={() => handleOptionTouch(1)} style={styles.options}>
+        </QuizOptions>
+        <QuizOptions onPress={() => handleOptionTouch(1)} handleIcon={resultIcons[1]}>
           {randomOptions[currentIndex]
             ? randomOptions[currentIndex][1]
             : "loading"}
-        </AppText>
-        <AppText onPress={() => handleOptionTouch(2)} style={styles.options}>
+        </QuizOptions>
+        <QuizOptions onPress={() => handleOptionTouch(2)} handleIcon={resultIcons[2]}>
           {randomOptions[currentIndex]
             ? randomOptions[currentIndex][2]
             : "loading"}
-        </AppText>
-        <AppText onPress={() => handleOptionTouch(3)} style={styles.options}>
+        </QuizOptions>
+        <QuizOptions onPress={() => handleOptionTouch(3)} handleIcon={resultIcons[3]}>
           {randomOptions[currentIndex]
             ? randomOptions[currentIndex][3]
             : "loading"}
+        </QuizOptions>
+      </View>
+      <View style={[styles.resultContainer, {backgroundColor:resultColor}]}>
+        <AppText style={styles.result}>
+            {correctIndex.indexOf(currentIndex) !== -1 ? 'Du svarte riktig.' : incorrectIndex.indexOf(currentIndex) !== -1 ? 'Du svarte feil.' : 'Du har ikke svart ennå.'}
         </AppText>
       </View>
-      <View style={styles.buttonContainer}>
+     <View style={styles.buttonContainer}>
         <AppButton
           color="secondary"
           title="Forrige"
@@ -155,8 +206,9 @@ function QuizScreen(props) {
           title="Neste"
           onPress={handleNextButton}
           width="40%"
+          style={styles.button}
         />
-      </View>
+          </View>
     </Screen>
   );
 }
@@ -171,27 +223,35 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     padding: 5,
+    marginVertical: 20
+  },
+  stats: {
+      fontSize: 16,
+      fontWeight: '700'
   },
   question: {
     fontWeight: "bold",
     margin: 5,
   },
   image: {
-    width: 150,
-    height: 150,
-    marginRight: 10,
+    width: 100,
+    height: 100,
+    margin: 10,
   },
   optionsContainer: {
     display: "flex",
     justifyContent: "center",
-    height: 250,
-    width: "100%",
+    width: "100%"
   },
-  options: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 3,
+  resultContainer: {
+      justifyContent: 'center',
+      width: '100%',
+      marginTop: -5,
+      height: 50
+  },
+  result: {
+    fontSize: 16,
+    textAlign: 'center'
   },
   buttonContainer: {
     display: "flex",
@@ -199,6 +259,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
   },
+  button: {
+      backgroundColor: 'red'
+  }
 });
 
 export default QuizScreen;

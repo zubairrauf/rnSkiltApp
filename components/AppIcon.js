@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 
 import colors from '../config/colors'
 
 function AppIcon( { 
     name,
-    size= 40,
+    size=40,
     backgroundColor = colors.secondary,
     iconColor = colors.black
 }) {
@@ -19,7 +19,7 @@ function AppIcon( {
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <MaterialCommunityIcons name={name} color={iconColor} size={size/2}/>
+            <Entypo name={name} color={iconColor} size={size/2}/>
         </View>
     );
 }
