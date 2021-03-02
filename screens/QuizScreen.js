@@ -4,7 +4,8 @@ import {
   Image,
   View,
   TouchableWithoutFeedback,
-  Vibration
+  Vibration,
+  Alert
 } from "react-native";
 
 import AppHeader from "../components/AppButton";
@@ -17,17 +18,19 @@ import QuizOptions from '../components/QuizOptions'
 import colors from "../config/colors";
 import Eclips from '../components/Eclips'
 
-function QuizScreen(props) {
+function QuizScreen({ navigation }) {
   const [questions, setQuestions] = useState([]); //Holds all quiz questions
   const [randomOptions, setRandomOptions] = useState([]); //1 correct and 3 random wrong answers
-  const [currentIndex, setCurrentIndex] = useState(0); 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [totalAnswered, setTotalAnswered] = useState(0); 
   const [score, setScore] = useState(0);
   const [previousButtonDisabled, setPreviousButtonDisabled] = useState(true)
   const [previousNextDisabled, setNextButtonDisabled] = useState(false)
   const [correctIndex, setCorrectIndex] = useState([]);
   const [incorrectIndex, setIncorrectIndex] = useState([]);
   const [resultIcons, setResultIcons] = useState([])
-  const [resultColor, setResultColor] = useState('')
+  const [resultColor, setResultColor] = useState(colors.light)
+  const [ retry, setRetry ] = useState(0)
 
   //Select random signs and put them in questions
   let numberOfQuestions = 15;
@@ -39,7 +42,7 @@ function QuizScreen(props) {
         let r = Math.floor(Math.random() * signsData.length) + 1;
         if(randomQuestionIds.indexOf(r) === -1) randomQuestionIds.push(r)
     }
-  }, []);
+  }, [retry]);
 
   //Grab signs based on randomQuestionIds and update the questions state
   useEffect(() => {
@@ -71,6 +74,7 @@ function QuizScreen(props) {
 
     //Check if the answer is correct or incorrect
     const handleOptionTouch = (i) => {
+        setTotalAnswered(prevTotalAnswered => prevTotalAnswered + 1 )
         if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
             setCorrectIndex((prevCorrectIndex) => [
             ...prevCorrectIndex,
@@ -88,7 +92,7 @@ function QuizScreen(props) {
         }
         setTimeout(() => {
             quizNavigation("next");
-        }, 500);
+        }, 1000);
     };
 
     //Handle show correct or incorrect icon
@@ -98,23 +102,68 @@ function QuizScreen(props) {
 
     let icons = []
     const handleResultFeedback = () => {
-        if(correctIndex.indexOf(currentIndex) !== -1 || incorrectIndex.indexOf(currentIndex) !== -1) {
-            for (let i=0; i < randomOptions[currentIndex].length; i++) {
-                if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
-                    icons[i] = 'correct'
-                } else {
-                    icons[i] = 'incorrect'
-                }
-            }
-            setResultIcons(icons);
-        } else {
-            setResultIcons([]);
-            setResultColor(colors.light)
+      //Icons
+        if(randomOptions.length > 0) {
+          if(correctIndex.indexOf(currentIndex) !== -1 || incorrectIndex.indexOf(currentIndex) !== -1) {
+              for (let i=0; i < randomOptions[currentIndex].length; i++) {
+                  if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
+                      icons[i] = 'correct'
+                  } else {
+                      icons[i] = 'incorrect'
+                  }
+              }
+              setResultIcons(icons);
+          } else {
+              setResultIcons([]);
+              setResultColor(colors.light)
+          }
         }
+        //Background color
         if(correctIndex.indexOf(currentIndex) !== -1) setResultColor(colors.primary)
         else if(incorrectIndex.indexOf(currentIndex) !== -1) setResultColor(colors.danger)
+
+        //Final result
+        if(totalAnswered >= numberOfQuestions) {
+          setTimeout(() => {
+              endQuiz()
+          }, 500)
+        }
     }
 
+    //End quiz
+    const endQuiz = () => {
+      let percentage = Math.round(score * 100 / numberOfQuestions)
+      let alertMsg = `Du svarte ${percentage} % rikitig.`
+      Alert.alert(
+        'Resultat',
+        alertMsg,
+        [
+          {
+            text: 'Ta ny test',
+            onPress: () => resetQuiz()
+          },
+          {
+            text: 'Avbryt',
+            onPress: () => console.log('Avbryt pressed')
+          }
+        ],
+        { cancelable: false }
+      )
+    }
+
+    //Reset quiz
+    const resetQuiz = () => {
+      setQuestions([]);
+      setRandomOptions([])
+      setCurrentIndex(0)
+      setTotalAnswered(0)
+      setScore(0)
+      setCorrectIndex([])
+      setIncorrectIndex([])
+      setResultIcons([])
+      setResultColor(colors.light)
+      setRetry(prevRetry => prevRetry +1 )
+    }
   //Button handlers
   const handleNextButton = () => {
     quizNavigation("next");
@@ -151,6 +200,7 @@ function QuizScreen(props) {
 //     if(currentIndex -1 < questions.length) setNextButtonDisabled(false)
 //     else setNextButtonDisabled(true)
 //   }
+
 
   return (
     <Screen style={styles.container}>
