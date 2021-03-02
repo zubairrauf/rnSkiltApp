@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   resultContainer: {
       justifyContent: 'center',
       width: '100%',
-      marginTop: -5,
+      // marginTop: -5,
       height: 50
   },
   result: {
@@ -329,9 +329,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-  },
-  button: {
-      backgroundColor: 'red'
   },
   adContainer: {
     marginBottom: 5

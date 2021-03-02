@@ -14,13 +14,13 @@
     {
       "id": "3",
       "name": "Forbudsskilt",
-      "slug": "forbud",
+      "slug": "prohibition",
       "number": 15
     },
     {
       "id": "4",
       "name": "Påbudsskilt",
-      "slug": "påbud",
+      "slug": "mandatory",
       "number": 15
     },
     {

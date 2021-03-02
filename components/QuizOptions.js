@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   option: {
-      fontSize: 16
+      fontSize: 16,
+      width: '90%'
   }
 });
 
