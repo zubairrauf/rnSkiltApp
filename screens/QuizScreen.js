@@ -7,6 +7,13 @@ import {
   Vibration,
   Alert
 } from "react-native";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync,
+} from 'expo-ads-admob';
 
 import AppHeader from "../components/AppButton";
 import AppText from "../components/AppText";
@@ -205,67 +212,81 @@ function QuizScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
         <Eclips />
-      <View style={styles.statsContainer}>
-        <AppText style={styles.stats}>Poeng: {score}</AppText>
-        <AppText style={styles.stats}>
-          {currentIndex + 1} av {questions.length}
-        </AppText>
-      </View>
-      <AppText style={styles.question}>
-        {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
-      </AppText>
-      {questions[currentIndex] && (
-        <Image style={styles.image} source={questions[currentIndex].img} />
-      )}
-      <View style={styles.optionsContainer}>
-        <QuizOptions onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
-          {randomOptions[currentIndex]
-            ? randomOptions[currentIndex][0]
-            : "loading"}
-        </QuizOptions>
-        <QuizOptions onPress={() => handleOptionTouch(1)} handleIcon={resultIcons[1]}>
-          {randomOptions[currentIndex]
-            ? randomOptions[currentIndex][1]
-            : "loading"}
-        </QuizOptions>
-        <QuizOptions onPress={() => handleOptionTouch(2)} handleIcon={resultIcons[2]}>
-          {randomOptions[currentIndex]
-            ? randomOptions[currentIndex][2]
-            : "loading"}
-        </QuizOptions>
-        <QuizOptions onPress={() => handleOptionTouch(3)} handleIcon={resultIcons[3]}>
-          {randomOptions[currentIndex]
-            ? randomOptions[currentIndex][3]
-            : "loading"}
-        </QuizOptions>
-      </View>
-      <View style={[styles.resultContainer, {backgroundColor:resultColor}]}>
-        <AppText style={styles.result}>
-            {correctIndex.indexOf(currentIndex) !== -1 ? 'Du svarte riktig.' : incorrectIndex.indexOf(currentIndex) !== -1 ? 'Du svarte feil.' : 'Du har ikke svart ennå.'}
-        </AppText>
-      </View>
-     <View style={styles.buttonContainer}>
-        <AppButton
-          color="secondary"
-          title="Forrige"
-          onPress={handlePrevButton}
-          width="40%"
-        />
-        <AppButton
-          color="secondary"
-          title="Neste"
-          onPress={handleNextButton}
-          width="40%"
-          style={styles.button}
-        />
+        <View style={styles.quizContainer}>
+          <View style={styles.statsContainer}>
+            <AppText style={styles.stats}>Poeng: {score}</AppText>
+            <AppText style={styles.stats}>
+              {currentIndex + 1} av {questions.length}
+            </AppText>
           </View>
-    </Screen>
+          <AppText style={styles.question}>
+            {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
+          </AppText>
+          {questions[currentIndex] && (
+            <Image style={styles.image} source={questions[currentIndex].img} />
+          )}
+          <View style={styles.optionsContainer}>
+            <QuizOptions onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
+              {randomOptions[currentIndex]
+                ? randomOptions[currentIndex][0]
+                : "loading"}
+            </QuizOptions>
+            <QuizOptions onPress={() => handleOptionTouch(1)} handleIcon={resultIcons[1]}>
+              {randomOptions[currentIndex]
+                ? randomOptions[currentIndex][1]
+                : "loading"}
+            </QuizOptions>
+            <QuizOptions onPress={() => handleOptionTouch(2)} handleIcon={resultIcons[2]}>
+              {randomOptions[currentIndex]
+                ? randomOptions[currentIndex][2]
+                : "loading"}
+            </QuizOptions>
+            <QuizOptions onPress={() => handleOptionTouch(3)} handleIcon={resultIcons[3]}>
+              {randomOptions[currentIndex]
+                ? randomOptions[currentIndex][3]
+                : "loading"}
+            </QuizOptions>
+          </View>
+          <View style={[styles.resultContainer, {backgroundColor:resultColor}]}>
+            <AppText style={styles.result}>
+                {correctIndex.indexOf(currentIndex) !== -1 ? 'Du svarte riktig.' : incorrectIndex.indexOf(currentIndex) !== -1 ? 'Du svarte feil.' : 'Du har ikke svart ennå.'}
+            </AppText>
+          </View>
+        <View style={styles.buttonContainer}>
+            <AppButton
+              color="secondary"
+              title="Forrige"
+              onPress={handlePrevButton}
+              width="40%"
+            />
+            <AppButton
+              color="secondary"
+              title="Neste"
+              onPress={handleNextButton}
+              width="40%"
+              style={styles.button}
+            />
+          </View>
+        </View>
+      <View style={styles.adContainer}>
+        <AdMobBanner
+          bannerSize="banner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+        />
+      </View>
+      </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: 'space-between'
+  },
+  quizContainer: {
+    width: '100%',
     alignItems: "center",
   },
   statsContainer: {
@@ -311,6 +332,9 @@ const styles = StyleSheet.create({
   },
   button: {
       backgroundColor: 'red'
+  },
+  adContainer: {
+    marginBottom: 5
   }
 });
 
