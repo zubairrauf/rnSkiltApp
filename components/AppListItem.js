@@ -1,5 +1,5 @@
-import React from "react";
-import { Image, View, StyleSheet, TouchableHighlight } from "react-native";
+import React, { useState } from "react";
+import { Image, View,Text, StyleSheet, TouchableHighlight, TouchableWithoutFeedback, TouchableOpacity, Modal} from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import colors from "../config/colors";
@@ -8,18 +8,45 @@ import AppIcon from '../components/AppIcon'
 
 
 function AppListItem({ title, subTitle, image, icon, onPress }) {
+  const [ modalVisible, setModalVisible ] = useState(false)
+
   return (
     <View style={styles.container}>
-        {image && <Image style={styles.image} source={image} />}
-        <View style={styles.detailsContainer}>
-            <AppText style={styles.title}>{title}</AppText>
-            {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
-        </View>
-        <View style={styles.iconContainer}>
-            <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-                <AppIcon name={icon} />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <AppText style={styles.modalTitle}>{title}</AppText>
+            {image && <Image style={styles.modalImage} source={image} />}
+            <Text style={styles.modalDescription}>{subTitle}</Text>
+            <TouchableHighlight
+              style={styles.closeButton}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}>
+              <Text style={styles.textStyle}>Lukk</Text>
             </TouchableHighlight>
+          </View>
         </View>
+      </Modal>
+      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+        <View style={styles.itemContainer}>
+          {image && <Image style={styles.image} source={image} />}
+          <View style={styles.detailsContainer}>
+              <AppText style={styles.title}>{title}</AppText>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+      <View style={styles.iconContainer}>
+          <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+              <AppIcon name={icon} />
+          </TouchableHighlight>
+      </View>
     </View>
   );
 }
@@ -34,7 +61,16 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     margin: 5,
     alignItems: 'center',
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+  },
+  itemContainer: {
+    width: '85%',
+    flexDirection: 'row',
+    alignItems: 'center',
+
+  },
+  iconContainer: {
+    // backgroundColor: 'orange'
   },
   image: {
     width: 70,
@@ -53,4 +89,51 @@ const styles = StyleSheet.create({
   subtitle: {
     color: colors.medium,
   },
+  //Modal styles
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: colors.dark,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  closeButton: {
+    backgroundColor: colors.dark,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalImage: {
+    width: 150,
+    height: 150
+  },
+  modalTitle: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  modalDescription: {
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 15
+  }
 });

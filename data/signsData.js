@@ -3,7 +3,7 @@ export const signsData = [
       id: "1",
       img: require("../assets/images/dangersigns/100_1.jpg"),
       name: "Farlig sving til høyre",
-      description: '',
+      description: "Test description. Write details here.",
       category: "danger",
     },
     {
@@ -359,7 +359,7 @@ export const signsData = [
     {
       id: "52",
       img: require("../assets/images/yieldsigns/208_0.jpg"),
-      name: "Slupp på forkjørsvei",
+      name: "Slutt på forkjørsvei",
       description: '',
       category: "yield",
     },
