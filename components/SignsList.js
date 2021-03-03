@@ -74,7 +74,7 @@ function SignsList({ slug, mySigns, setMySigns }) {
             }
         });
     }
-
+    
   return (
       <ScrollView>
         {signsToDisplay}

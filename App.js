@@ -6,15 +6,17 @@ import AppNavigator from './navigation/AppNavigator';
 import AuthNavigator from './navigation/AuthNavigator'
 import { MySignsContextProvider } from './context/MySignsContext'
 import navigationTheme from './navigation/navigationTheme';
+import FlashcardsDeck from './components/FlashcardsDeck'
 
 
 export default function App() {
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <MySignsContextProvider>
-        <AuthNavigator />
-      </MySignsContextProvider>
-    </NavigationContainer>
+    // <NavigationContainer theme={navigationTheme}>
+    //   <MySignsContextProvider>
+    //     <AuthNavigator />
+    //   </MySignsContextProvider>
+    // </NavigationContainer>
+    <FlashcardsDeck />
   );
 }
 
