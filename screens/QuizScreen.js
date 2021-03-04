@@ -37,7 +37,7 @@ function QuizScreen({ navigation }) {
   const [resultIcons, setResultIcons] = useState([])
   const [resultColor, setResultColor] = useState(colors.light)
   const [ retry, setRetry ] = useState(0)
-  const [ isRunning, setIsRunnig ] = useState(true)
+  const [ isRunning, setIsRunning ] = useState(true)
 
   //Select random signs and put them in questions
   let numberOfQuestions = 15;
@@ -81,8 +81,8 @@ function QuizScreen({ navigation }) {
 
     //Check if the answer is correct or incorrect
     const handleOptionTouch = (i) => {
-      if(isRunning) { //Checking if already answered
-        setTotalAnswered(prevTotalAnswered => prevTotalAnswered + 1 )
+      setTotalAnswered(prevTotalAnswered => prevTotalAnswered + 1 )
+      if(isRunning && correctIndex.indexOf(currentIndex != -1)) { //Checking if already answered
         if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
             setCorrectIndex((prevCorrectIndex) => [
             ...prevCorrectIndex,
@@ -141,24 +141,26 @@ function QuizScreen({ navigation }) {
 
     //End quiz
     const endQuiz = () => {
-      setIsRunning(false)
       let percentage = Math.round(score * 100 / numberOfQuestions)
       let alertMsg = `Du svarte ${percentage} % rikitig.`
-      Alert.alert(
-        'Resultat',
-        alertMsg,
-        [
-          {
-            text: 'Ta ny test',
-            onPress: () => resetQuiz()
-          },
-          {
-            text: 'Avbryt',
-            onPress: () => console.log('Avbryt pressed')
-          }
-        ],
-        { cancelable: false }
-      )
+      if(isRunning) {
+        Alert.alert(
+          'Resultat',
+          alertMsg,
+          [
+            {
+              text: 'Ta ny test',
+              onPress: () => resetQuiz()
+            },
+            {
+              text: 'Avbryt',
+              onPress: () => console.log('Avbryt pressed')
+            }
+          ],
+          { cancelable: false }
+        )
+        setIsRunning(false)
+      }
     }
 
     //Reset quiz
@@ -173,6 +175,7 @@ function QuizScreen({ navigation }) {
       setResultIcons([])
       setResultColor(colors.light)
       setRetry(prevRetry => prevRetry +1 )
+      setIsRunning(true)
     }
   //Button handlers
   const handleNextButton = () => {
