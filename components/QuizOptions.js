@@ -7,7 +7,7 @@ import colors from '../config/colors'
 
 function QuizOptions({children, style, handleIcon, ...otherProps}) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {style}]}>
         <AppText style={[styles.option, style]} {...otherProps}>
             {children}
         </AppText>

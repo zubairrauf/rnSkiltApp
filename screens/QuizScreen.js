@@ -37,6 +37,7 @@ function QuizScreen({ navigation }) {
   const [resultIcons, setResultIcons] = useState([])
   const [resultColor, setResultColor] = useState(colors.light)
   const [ retry, setRetry ] = useState(0)
+  const [ isRunning, setIsRunnig ] = useState(true)
 
   //Select random signs and put them in questions
   let numberOfQuestions = 15;
@@ -80,6 +81,7 @@ function QuizScreen({ navigation }) {
 
     //Check if the answer is correct or incorrect
     const handleOptionTouch = (i) => {
+      if(isRunning) { //Checking if already answered
         setTotalAnswered(prevTotalAnswered => prevTotalAnswered + 1 )
         if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
             setCorrectIndex((prevCorrectIndex) => [
@@ -99,6 +101,7 @@ function QuizScreen({ navigation }) {
         setTimeout(() => {
             quizNavigation("next");
         }, 1000);
+      }
     };
 
     //Handle show correct or incorrect icon
@@ -138,6 +141,7 @@ function QuizScreen({ navigation }) {
 
     //End quiz
     const endQuiz = () => {
+      setIsRunning(false)
       let percentage = Math.round(score * 100 / numberOfQuestions)
       let alertMsg = `Du svarte ${percentage} % rikitig.`
       Alert.alert(
@@ -225,7 +229,7 @@ function QuizScreen({ navigation }) {
             <Image style={styles.image} source={questions[currentIndex].img} />
           )}
           <View style={styles.optionsContainer}>
-            <QuizOptions onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
+            <QuizOptions style={styles.option} onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
               {randomOptions[currentIndex]
                 ? randomOptions[currentIndex][0]
                 : "loading"}
@@ -268,11 +272,11 @@ function QuizScreen({ navigation }) {
           </View>
         </View>
       <View style={styles.adContainer}>
-        <AdMobBanner
+       {/* <AdMobBanner
           bannerSize="banner"
           adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
           servePersonalizedAds // true or false
-        />
+       />*/}
       </View>
       </Screen>
   );
@@ -312,6 +316,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     width: "100%"
+  },
+  option: {
   },
   resultContainer: {
       justifyContent: 'center',
