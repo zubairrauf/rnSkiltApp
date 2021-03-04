@@ -17,9 +17,10 @@ function QuizScreen({ navigation }) {
   //Restart quiz on navigating away and coming back
   useFocusEffect(
     React.useCallback(() => {
-      resetQuiz()
+      //Can add a function to perform on focus to this screen.
       return () => {
-        //Can show an warning alert here.
+        resetQuiz()
+        //Can show an warning alert here before resetting the quiz.
       }
     }, [])
   )
