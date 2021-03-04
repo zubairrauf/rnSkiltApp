@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  TouchableWithoutFeedback,
-  Vibration,
-  Alert
-} from "react-native";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
-} from 'expo-ads-admob';
+import { StyleSheet, Image, View, Vibration, Alert } from "react-native";
+import { AdMobBanner, AdMobInterstitial, PublisherBanner, AdMobRewarded, setTestDeviceIDAsync } from 'expo-ads-admob';
+import { useFocusEffect } from '@react-navigation/native'
 
 import AppHeader from "../components/AppButton";
 import AppText from "../components/AppText";
@@ -26,6 +14,16 @@ import colors from "../config/colors";
 import Eclips from '../components/Eclips'
 
 function QuizScreen({ navigation }) {
+  //Restart quiz on navigating away and coming back
+  useFocusEffect(
+    React.useCallback(() => {
+      resetQuiz()
+      return () => {
+        //Can show an warning alert here.
+      }
+    }, [])
+  )
+
   const [questions, setQuestions] = useState([]); //Holds all quiz questions
   const [randomOptions, setRandomOptions] = useState([]); //1 correct and 3 random wrong answers
   const [currentIndex, setCurrentIndex] = useState(0);
