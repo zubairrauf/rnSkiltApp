@@ -1,12 +1,12 @@
-import { DefaultTheme } from '@react-navigation/native'
+import { DefaultTheme } from "@react-navigation/native";
 
-import colors from '../config/colors'
+import colors from "../config/colors";
 
 export default {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: colors.primary,
-        background: colors.white
-    }
-}
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.light,
+  },
+};
