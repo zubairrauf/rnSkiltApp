@@ -45,6 +45,10 @@ const AppNavigator = () => (
               />
             ),
             tabBarBadge: mySigns.length,
+            tabBarBadgeStyle: {
+              backgroundColor:
+                mySigns.length < 1 ? colors.light : colors.primary,
+            },
           }}
         />
         <Tab.Screen
