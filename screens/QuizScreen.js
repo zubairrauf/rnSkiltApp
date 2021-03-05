@@ -80,9 +80,9 @@ function QuizScreen({ navigation }) {
   }, [questions]);
 
     //Check if the answer is correct or incorrect
-    const handleOptionTouch = (i) => {
+    const handleOptionClick = (i) => {
       setTotalAnswered(prevTotalAnswered => prevTotalAnswered + 1 )
-      if(isRunning && correctIndex.indexOf(currentIndex != -1)) { //Checking if already answered
+      if(isRunning) { //Checking if quiz is running or finished
         if (randomOptions[currentIndex][i] === questions[currentIndex].name) {
             setCorrectIndex((prevCorrectIndex) => [
             ...prevCorrectIndex,
@@ -184,6 +184,9 @@ function QuizScreen({ navigation }) {
   const handlePrevButton = () => {
     quizNavigation("prev");
   };
+  const handleStartButton = () => {
+    resetQuiz();
+  };
 
   //Handle next or previouse question
   const quizNavigation = (direction) => {
@@ -232,22 +235,22 @@ function QuizScreen({ navigation }) {
             <Image style={styles.image} source={questions[currentIndex].img} />
           )}
           <View style={styles.optionsContainer}>
-            <QuizOptions style={styles.option} onPress={() => handleOptionTouch(0)} handleIcon={resultIcons[0]}>
+            <QuizOptions style={styles.option} onPress={() => handleOptionClick(0)} handleIcon={resultIcons[0]}>
               {randomOptions[currentIndex]
                 ? randomOptions[currentIndex][0]
                 : "loading"}
             </QuizOptions>
-            <QuizOptions onPress={() => handleOptionTouch(1)} handleIcon={resultIcons[1]}>
+            <QuizOptions onPress={() => handleOptionClick(1)} handleIcon={resultIcons[1]}>
               {randomOptions[currentIndex]
                 ? randomOptions[currentIndex][1]
                 : "loading"}
             </QuizOptions>
-            <QuizOptions onPress={() => handleOptionTouch(2)} handleIcon={resultIcons[2]}>
+            <QuizOptions onPress={() => handleOptionClick(2)} handleIcon={resultIcons[2]}>
               {randomOptions[currentIndex]
                 ? randomOptions[currentIndex][2]
                 : "loading"}
             </QuizOptions>
-            <QuizOptions onPress={() => handleOptionTouch(3)} handleIcon={resultIcons[3]}>
+            <QuizOptions onPress={() => handleOptionClick(3)} handleIcon={resultIcons[3]}>
               {randomOptions[currentIndex]
                 ? randomOptions[currentIndex][3]
                 : "loading"}
@@ -260,21 +263,29 @@ function QuizScreen({ navigation }) {
           </View>
           <View style={styles.explainationContainer}>
             <AppText style={styles.explaination}>
-              {correctIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex].description : incorrectIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex].description: 'Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. '}
+              {correctIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex] && questions[currentIndex].description : incorrectIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex] && questions[currentIndex].description: 'Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. '}
             </AppText>   
           </View>
           <View style={styles.buttonContainer}>
               <AppButton
-                color="secondary"
+                color="light"
                 title="Forrige"
                 onPress={handlePrevButton}
-                width="40%"
+                width="30%"
               />
+              {!isRunning && 
+                <AppButton
+                  color="secondary"
+                  title="Start"
+                  onPress={handleStartButton}
+                  width="30%"
+                />
+              }
               <AppButton
-                color="secondary"
+                color="light"
                 title="Neste"
                 onPress={handleNextButton}
-                width="40%"
+                width="30%"
                 style={styles.button}
               />
             </View>
