@@ -258,21 +258,26 @@ function QuizScreen({ navigation }) {
                 {correctIndex.indexOf(currentIndex) !== -1 ? 'Du svarte riktig.' : incorrectIndex.indexOf(currentIndex) !== -1 ? 'Du svarte feil.' : 'Du har ikke svart ennå.'}
             </AppText>
           </View>
-        <View style={styles.buttonContainer}>
-            <AppButton
-              color="secondary"
-              title="Forrige"
-              onPress={handlePrevButton}
-              width="40%"
-            />
-            <AppButton
-              color="secondary"
-              title="Neste"
-              onPress={handleNextButton}
-              width="40%"
-              style={styles.button}
-            />
+          <View style={styles.explainationContainer}>
+            <AppText style={styles.explaination}>
+              'Her kommer beskrivelse og forklaring om skiltet. Teksten kan være kort eller lang så jeg må pass på.
+            </AppText>   
           </View>
+          <View style={styles.buttonContainer}>
+              <AppButton
+                color="secondary"
+                title="Forrige"
+                onPress={handlePrevButton}
+                width="40%"
+              />
+              <AppButton
+                color="secondary"
+                title="Neste"
+                onPress={handleNextButton}
+                width="40%"
+                style={styles.button}
+              />
+            </View>
         </View>
       <View style={styles.adContainer}>
        {/* <AdMobBanner
@@ -287,11 +292,12 @@ function QuizScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    flex: 1,
     alignItems: "center",
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   quizContainer: {
+    flex: 1,
     width: '100%',
     alignItems: "center",
   },
@@ -299,14 +305,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    padding: 5,
-    marginVertical: 20
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    shadowColor: colors.dark,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   stats: {
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: '700'
-  },
-  question: {
+    },
+    question: {
     fontWeight: "bold",
     margin: 5,
   },
@@ -318,24 +333,33 @@ const styles = StyleSheet.create({
   optionsContainer: {
     display: "flex",
     justifyContent: "center",
-    width: "100%"
+    width: "100%",
   },
   option: {
   },
   resultContainer: {
       justifyContent: 'center',
       width: '100%',
-      // marginTop: -5,
-      height: 50
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      marginVertical: 5,
+      borderRadius: 5,
+      // height: 50
   },
   result: {
     fontSize: 16,
     textAlign: 'center'
   },
+  explainationContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  explaination: {
+    fontSize: 14,
+  },
   buttonContainer: {
-    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     width: "100%",
   },
   adContainer: {

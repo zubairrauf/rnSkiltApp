@@ -11,8 +11,10 @@ function QuizOptions({children, style, handleIcon, ...otherProps}) {
         <AppText style={[styles.option, style]} {...otherProps}>
             {children}
         </AppText>
-        {handleIcon==='correct' && <AppIcon name='check' size={30} backgroundColor={colors.primary}/>}
-        {handleIcon==='incorrect' && <AppIcon name='cross' size={30} backgroundColor={colors.danger}/>}
+        <View style={styles.iconContainer}>
+          {handleIcon==='correct' && <AppIcon name='check' size={30} backgroundColor={colors.primary}/>}
+          {handleIcon==='incorrect' && <AppIcon name='cross' size={30} backgroundColor={colors.danger}/>}
+        </View>
     </View>
   );
 }
@@ -21,16 +23,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    paddingVertical: 10,
     paddingHorizontal: 10,
+    marginVertical: 5,
     borderWidth: 1,
+    borderColor: colors.medium,
     borderRadius: 5,
-    height: 40,
-    margin: 3,
+    // height: 40,
   },
   option: {
       fontSize: 16,
-      width: '90%'
+      width: '100%'
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: 4,
+    top: 4
   }
 });
 
