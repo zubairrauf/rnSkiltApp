@@ -40,7 +40,7 @@ function QuizScreen({ navigation }) {
   const [ isRunning, setIsRunning ] = useState(true)
 
   //Select random signs and put them in questions
-  let numberOfQuestions = 15;
+  let numberOfQuestions = 5;
   let randomQuestionIds = [];
 
   //Make random IDs on component mount
@@ -260,7 +260,7 @@ function QuizScreen({ navigation }) {
           </View>
           <View style={styles.explainationContainer}>
             <AppText style={styles.explaination}>
-              'Her kommer beskrivelse og forklaring om skiltet. Teksten kan være kort eller lang så jeg må pass på.
+              {correctIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex].description : incorrectIndex.indexOf(currentIndex) !== -1 ? questions[currentIndex].description: 'Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. '}
             </AppText>   
           </View>
           <View style={styles.buttonContainer}>
@@ -356,6 +356,7 @@ const styles = StyleSheet.create({
   },
   explaination: {
     fontSize: 14,
+    textAlign: 'left',
   },
   buttonContainer: {
     flexDirection: "row",
