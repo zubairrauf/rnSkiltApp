@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import { MySignsContext } from "../context/MySignsContext";
 import HomeNavigator from "./HomeNavigator";
@@ -16,34 +17,34 @@ const AppNavigator = () => (
   <MySignsContext.Consumer>
     {({ mySigns }) => (
       <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Mine skilt") {
+              iconName = focused ? "md-folder-sharp" : "md-folder-outline";
+            } else if (route.name === "Quiz") {
+              iconName = focused ? "trail-sign-sharp" : "trail-sign-outline";
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
         tabBarOptions={{
-          activeBackgroundColor: colors.secondary,
+          // activeBackgroundColor: colors.secondary,
           activeTintColor: colors.dark,
           inactiveBackgroundColor: colors.white,
-          inactiveTintColor: colors.dark,
+          inactiveTintColor: colors.medium,
           labelStyle: { fontSize: 12, fontWeight: "700" },
         }}
       >
-        <Tab.Screen
-          name="Home"
-          component={HomeNavigator}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
-            ),
-          }}
-        />
+        <Tab.Screen name="Home" component={HomeNavigator} />
         <Tab.Screen
           name="Mine skilt"
           component={MySignsScreen}
           options={{
-            tabBarIcon: ({ size, color }) => (
-              <MaterialCommunityIcons
-                name="sign-direction"
-                size={size}
-                color={color}
-              />
-            ),
             tabBarBadge: mySigns.length,
             tabBarBadgeStyle: {
               backgroundColor:
@@ -51,19 +52,7 @@ const AppNavigator = () => (
             },
           }}
         />
-        <Tab.Screen
-          name="Quiz"
-          component={QuizScreen}
-          options={{
-            tabBarIcon: ({ size, color }) => (
-              <MaterialCommunityIcons
-                name="arrow-decision"
-                size={size}
-                color={color}
-              />
-            ),
-          }}
-        />
+        <Tab.Screen name="Quiz" component={QuizScreen} />
       </Tab.Navigator>
     )}
   </MySignsContext.Consumer>
