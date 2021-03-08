@@ -1,45 +1,48 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import colors from '../config/colors'
+import colors from "../config/colors";
 
-function CategoryBox({ title, subTitle, onPress, color = "white"}) {
+function CategoryBox({ title, subTitle, onPress, color = "white" }) {
   return (
-    <TouchableOpacity 
-      style={[styles.box, {backgroundColor: colors[color]}]}
+    <TouchableOpacity
+      style={[styles.box, { backgroundColor: colors[color] }]}
       onPress={onPress}
     >
-        <Image source={require("../assets/images/car.png")} style={styles.image}/>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subTitle}>{subTitle}</Text>
+      <Image
+        source={require("../assets/images/dangersigns/100_1.jpg")}
+        style={styles.image}
+      />
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subTitle}>{subTitle}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   box: {
-      borderRadius: 15,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginVertical: 10,
-      padding: 15,
-      width: 150,
-      height: 150,
-      shadowColor: '#303030',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.7,
-      elevation: 3
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+    padding: 10,
+    width: 150,
+    height: 120,
+    shadowColor: "#303030",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.7,
+    elevation: 3,
   },
   image: {
-      width: 60,
-      height: 60
+    width: 50,
+    height: 50,
   },
   title: {
-      color: colors.dark,
-      fontSize: 18,
-      fontWeight: "700",
-      // textTransform: "uppercase",
-  }
+    color: colors.dark,
+    fontSize: 14,
+    fontWeight: "700",
+    // textTransform: "uppercase",
+  },
 });
 
 export default CategoryBox;

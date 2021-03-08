@@ -7,6 +7,7 @@ import HomeNavigator from "./HomeNavigator";
 import DashboardScreen from "../screens/DashboardScreen";
 import SignsScreen from "../screens/SignsScreen";
 import MySignsScreen from "../screens/MySignsScreen";
+import TheoryTipsScreen from "../screens/TheoryTipsScreen";
 import QuizScreen from "../screens/QuizScreen";
 import colors from "../config/colors";
 
@@ -21,6 +22,8 @@ const AppNavigator = () => (
             let iconName;
             if (route.name === "Home") {
               iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Tips") {
+              iconName = focused ? "book" : "book-outline";
             } else if (route.name === "Mine skilt") {
               iconName = focused ? "md-folder-sharp" : "md-folder-outline";
             } else if (route.name === "Quiz") {
@@ -40,6 +43,7 @@ const AppNavigator = () => (
         }}
       >
         <Tab.Screen name="Home" component={HomeNavigator} />
+        <Tab.Screen name="Tips" component={TheoryTipsScreen} />
         <Tab.Screen
           name="Mine skilt"
           component={MySignsScreen}
