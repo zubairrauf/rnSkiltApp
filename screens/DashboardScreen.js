@@ -77,7 +77,7 @@ function DashboardScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.sectionTitleContainer}>
-        <AppText style={styles.sectionTitle}>Traffikkskilt</AppText>
+        <AppText style={styles.sectionTitle}>Trafikkskilt</AppText>
       </View>
       <View styles={styles.signsContainer}>
         <ScrollView
