@@ -3,23 +3,18 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import colors from "../config/colors";
 
-function TipsBox({ title, subTitle, onPress, color = "white" }) {
+function TipsBox({ color = "white", image, onPress, subTitle, title }) {
   return (
     <TouchableOpacity
       style={[styles.box, { backgroundColor: colors[color] }]}
       onPress={onPress}
     >
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/images/dangersigns/100_1.jpg")}
-          style={styles.image}
-        />
+        <Image source={image} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Hvordan beregne bremselengde</Text>
-        <Text style={styles.subTitle}>
-          Loru fucking ipsum flere ganger her så jeg har litt eksempel text.
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subTitle}>{subTitle}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -32,14 +27,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     flexDirection: "row",
-    height: 120,
+    height: 100,
     justifyContent: "space-between",
     margin: 5,
-    width: "100%",
   },
   imageContainer: {
-    // width: "20%",
-    padding: 10,
+    // padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 100,
+    height: "100%",
+    borderRadius: 10,
   },
   image: {
     height: 50,
@@ -47,10 +45,10 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     backgroundColor: colors.light,
+    flex: 1,
     height: "100%",
     justifyContent: "center",
     padding: 10,
-    width: "80%",
   },
   title: {
     color: colors.dark,

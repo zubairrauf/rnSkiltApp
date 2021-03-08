@@ -76,6 +76,9 @@ function DashboardScreen({ navigation }) {
           </View>
         </View>
       </View>
+      <View style={styles.sectionTitleContainer}>
+        <AppText style={styles.sectionTitle}>Traffikkskilt</AppText>
+      </View>
       <View styles={styles.signsContainer}>
         <ScrollView
           contentContainerStyle={styles.SignsScrollContainer}
@@ -94,14 +97,33 @@ function DashboardScreen({ navigation }) {
           ))}
         </ScrollView>
       </View>
+      <View style={styles.sectionTitleContainer}>
+        <AppText style={styles.sectionTitle}>Teoritips</AppText>
+      </View>
       <ScrollView
         contentContainerStyle={styles.TipsScrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        <TipsBox />
-        <TipsBox />
-        <TipsBox />
-        <TipsBox />
+        <TipsBox
+          title="Beregne bremselengde"
+          subTitle="For å beregne bremselengde, multipliser farten med"
+          image={require("../assets/images/dangersigns/100_1.jpg")}
+        />
+        <TipsBox
+          title="Beregne bremselengde"
+          subTitle="For å beregne bremselengde, multipliser farten med"
+          image={require("../assets/images/dangersigns/100_1.jpg")}
+        />
+        <TipsBox
+          title="Beregne bremselengde"
+          subTitle="For å beregne bremselengde, multipliser farten med"
+          image={require("../assets/images/dangersigns/100_1.jpg")}
+        />
+        <TipsBox
+          title="Beregne bremselengde"
+          subTitle="For å beregne bremselengde, multipliser farten med"
+          image={require("../assets/images/dangersigns/100_1.jpg")}
+        />
       </ScrollView>
     </>
   );
@@ -148,12 +170,22 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 50,
   },
+  sectionTitleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 30,
+    // backgroundColor: colors.white,
+    marginTop: 5,
+  },
+  sectionTitle: {
+    fontWeight: "700",
+  },
   signsContainer: {},
   SignsScrollContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 10,
+    // paddingVertical: 10,
   },
   TipsScrollContainer: {
     justifyContent: "space-around",
