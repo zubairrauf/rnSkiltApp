@@ -1,24 +1,87 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart,
+} from "react-native-chart-kit";
 
 import { SignsScoreContext } from "../context/SignsScoreContext";
+import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
 
 function QuizOverviewScreen({ navigation }) {
+  const chartConfig = {
+    backgroundColor: colors.primary,
+    backgroundGradientFrom: colors.secondary,
+    backgroundGradientTo: colors.primary,
+    decimalPlaces: 0, // optional, defaults to 2dp
+    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    labelColor: () => colors.dark,
+    style: {
+      borderRadius: 16,
+    },
+    propsForDots: {
+      r: "5",
+      strokeWidth: "1",
+      stroke: colors.dark,
+    },
+  };
   return (
     <SignsScoreContext.Consumer>
       {({ signsScore, setSignsScore }) => (
         <Screen style={styles.container}>
           <Eclips />
           <View style={styles.header}>
-            <AppText style={styles.heading}>Kjør i vei</AppText>
-            <AppText style={styles.subHeading}>Dine tester</AppText>
-            {signsScore.map((score) => (
-              <AppText style={styles.subHeading}>Last score {score}</AppText>
-            ))}
+            <AppText style={styles.heading}>Kjør i vei - Dine tester</AppText>
+            <AppText style={styles.description}>
+              Her kan du se resultat av 10 siste tester. Ta flere tester og se
+              om du kan gjøre det bedre enn førrige gang. Øvelse gjør mester.
+            </AppText>
+          </View>
+          <View style={styles.chartsCotnainer}>
+            <LineChart
+              data={{
+                datasets: [
+                  {
+                    data: signsScore,
+                  },
+                ],
+
+                legend: ["Poeng"],
+              }}
+              width={Dimensions.get("window").width - 10} // from react-native
+              height={150}
+              yAxisInterval={1} // optional, defaults to 1
+              chartConfig={chartConfig}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 10,
+              }}
+            />
+            <BarChart
+              style={{
+                marginVertical: 8,
+                borderRadius: 10,
+              }}
+              data={{
+                datasets: [
+                  {
+                    data: signsScore,
+                  },
+                ],
+              }}
+              width={Dimensions.get("window").width - 10}
+              height={150}
+              chartConfig={chartConfig}
+            />
           </View>
           <View style={styles.buttonsContainer}>
             <AppButton title="Teori test" color="secondary" width="40%" />
@@ -42,17 +105,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   header: {
-    padding: 10,
+    padding: 20,
   },
   heading: {
     fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
   },
-  subHeading: {
+  description: {
     fontSize: 14,
-    fontWeight: "700",
-    textAlign: "center",
+    marginVertical: 10,
   },
   buttonsContainer: {
     width: "100%",
