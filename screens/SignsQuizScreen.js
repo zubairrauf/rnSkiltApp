@@ -19,7 +19,7 @@ import QuizOptions from "../components/QuizOptions";
 import colors from "../config/colors";
 import Eclips from "../components/Eclips";
 
-function QuizScreen({ navigation }) {
+function SignsQuizScreen({ navigation }) {
   //Restart quiz on navigating away and coming back
   useFocusEffect(
     React.useCallback(() => {
@@ -423,4 +423,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuizScreen;
+export default SignsQuizScreen;

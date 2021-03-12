@@ -4,11 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MySignsContext } from "../context/MySignsContext";
 import HomeNavigator from "./HomeNavigator";
+import QuizNavigator from "./QuizNavigator";
 import DashboardScreen from "../screens/DashboardScreen";
 import SignsScreen from "../screens/SignsScreen";
 import MySignsScreen from "../screens/MySignsScreen";
 import TheoryTipsScreen from "../screens/TheoryTipsScreen";
-import QuizScreen from "../screens/QuizScreen";
+import SignsQuizScreen from "../screens/SignsQuizScreen";
+import QuizOverviewScreen from "../screens/QuizOverviewScreen";
 import colors from "../config/colors";
 
 //Tab Navigation
@@ -26,7 +28,7 @@ const AppNavigator = () => (
               iconName = focused ? "book" : "book-outline";
             } else if (route.name === "Mine skilt") {
               iconName = focused ? "md-folder-sharp" : "md-folder-outline";
-            } else if (route.name === "Quiz") {
+            } else if (route.name === "Test") {
               iconName = focused ? "trail-sign-sharp" : "trail-sign-outline";
             }
 
@@ -55,7 +57,7 @@ const AppNavigator = () => (
             },
           }}
         />
-        <Tab.Screen name="Quiz" component={QuizScreen} />
+        <Tab.Screen name="Test" component={QuizNavigator} />
       </Tab.Navigator>
     )}
   </MySignsContext.Consumer>
