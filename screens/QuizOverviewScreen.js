@@ -6,7 +6,6 @@ import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function QuizOverviewScreen({ navigation }) {
   return (
@@ -17,9 +16,9 @@ function QuizOverviewScreen({ navigation }) {
           <View style={styles.header}>
             <AppText style={styles.heading}>Kjør i vei</AppText>
             <AppText style={styles.subHeading}>Dine tester</AppText>
-            <AppText style={styles.subHeading}>
-              Last score {signsScore[signsScore.length - 1]}
-            </AppText>
+            {signsScore.map((score) => (
+              <AppText style={styles.subHeading}>Last score {score}</AppText>
+            ))}
           </View>
           <View style={styles.buttonsContainer}>
             <AppButton title="Teori test" color="secondary" width="40%" />

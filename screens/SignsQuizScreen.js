@@ -18,26 +18,9 @@ import { shuffleArray, isEmpty } from "../utils/helperFunctions";
 import QuizOptions from "../components/QuizOptions";
 import colors from "../config/colors";
 import Eclips from "../components/Eclips";
-import { SignsScoreContextProvider } from "../context/SignsScoreContext";
 
 function SignsQuizScreen({ route, navigation }) {
-  const { signsScore, setSignsScore } = route.params;
-
-  //Save signsScore on state change
-  useEffect(() => {
-    storeSignsScore(signsScore);
-    console.log("storeSignsScore ran", signsScore);
-  }, [signsScore]);
-
-  //Store signsScore array in AsyncStorage
-  const storeSignsScore = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("kivSignsScore", jsonValue);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { setSignsScore } = route.params;
 
   //Restart quiz on navigating away and coming back
   useFocusEffect(
@@ -164,8 +147,10 @@ function SignsQuizScreen({ route, navigation }) {
 
     //Final result
     if (totalAnswered >= numberOfQuestions) {
+      setSignsScore((prevSignsScore) => {
+        return [...prevSignsScore, score];
+      });
       setTimeout(() => {
-        setSignsScore((prevSignsScore) => [...prevSignsScore, score]);
         endQuiz();
       }, 500);
     }

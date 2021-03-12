@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const SignsScoreContext = React.createContext();
 
 const SignsScoreContextProvider = ({ children }) => {
-  const [signsScore, setSignsScore] = useState([]);
+  const [signsScore, setSignsScore] = useState([6]);
   //Get the score from AsyncStorage on load
   useEffect(() => {
     getSignsScore();
@@ -19,6 +19,24 @@ const SignsScoreContextProvider = ({ children }) => {
       } else {
         console.log("parsedvalue null", parsedValue);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Save score in AsyncStorage
+  //Save signsScore on state change
+  useEffect(() => {
+    storeSignsScore(signsScore);
+    console.log("storeSignsScore ran", signsScore);
+  }, [signsScore]);
+
+  //Store signsScore array in AsyncStorage
+  const storeSignsScore = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("kivSignsScore", jsonValue);
+      console.log("Yippi", jsonValue);
     } catch (error) {
       console.log(error);
     }
