@@ -8,8 +8,8 @@ import {
   setTestDeviceIDAsync,
 } from "expo-ads-admob";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import AppHeader from "../components/AppButton";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
@@ -18,8 +18,27 @@ import { shuffleArray, isEmpty } from "../utils/helperFunctions";
 import QuizOptions from "../components/QuizOptions";
 import colors from "../config/colors";
 import Eclips from "../components/Eclips";
+import { SignsScoreContextProvider } from "../context/SignsScoreContext";
 
-function SignsQuizScreen({ navigation }) {
+function SignsQuizScreen({ route, navigation }) {
+  const { signsScore, setSignsScore } = route.params;
+
+  //Save signsScore on state change
+  useEffect(() => {
+    storeSignsScore(signsScore);
+    console.log("storeSignsScore ran", signsScore);
+  }, [signsScore]);
+
+  //Store signsScore array in AsyncStorage
+  const storeSignsScore = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("kivSignsScore", jsonValue);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //Restart quiz on navigating away and coming back
   useFocusEffect(
     React.useCallback(() => {
@@ -146,6 +165,7 @@ function SignsQuizScreen({ navigation }) {
     //Final result
     if (totalAnswered >= numberOfQuestions) {
       setTimeout(() => {
+        setSignsScore((prevSignsScore) => [...prevSignsScore, score]);
         endQuiz();
       }, 500);
     }

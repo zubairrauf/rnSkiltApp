@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { MySignsContext } from "../context/MySignsContext";
+import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
 import CategoryBox from "../components/CategoryBox";
 import TipsBox from "../components/TipsBox";
@@ -49,11 +50,17 @@ function DashboardScreen({ navigation }) {
               color={colors.dark}
               style={styles.icon}
             />
-            <AppText
-              onPress={() => navigation.navigate("Quiz", { slug: "mySigns" })}
-            >
-              100 poeng
-            </AppText>
+            <SignsScoreContext.Consumer>
+              {({ signsScore }) => (
+                <AppText
+                  onPress={() =>
+                    navigation.navigate("Quiz", { slug: "mySigns" })
+                  }
+                >
+                  {signsScore[0] ? signsScore[signsScore.length - 1] : 0} poeng
+                </AppText>
+              )}
+            </SignsScoreContext.Consumer>
           </View>
           <View style={styles.statsBox}>
             <MaterialCommunityIcons
