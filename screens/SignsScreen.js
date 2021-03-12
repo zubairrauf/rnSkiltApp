@@ -6,8 +6,10 @@ import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
 import SignsList from '../components/SignsList'
 import AppHeader from '../components/AppHeader'
+import AppButton from '../components/AppButton'
 
 function SignsScreen({ route }) {
+  console.log('Route: ', route)
   return (
     <Screen style={styles.container}>
         <Eclips />
@@ -19,8 +21,9 @@ function SignsScreen({ route }) {
                 mySigns={mySigns} //comming from context
                 setMySigns={setMySigns} //comming from context
               />
-          )}
-        </MySignsContext.Consumer>
+              )}
+            </MySignsContext.Consumer>
+            {route.params.slug==='mySigns' && <AppButton title='Flashcards'/>}
     </Screen>
   );
 }
