@@ -25,24 +25,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 5,
-    padding: 10,
-    width: 150,
-    height: 120,
+    padding: 5,
+    width: "45%",
+    height: 75,
     shadowColor: "#303030",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.7,
     elevation: 3,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
   },
   title: {
     color: colors.dark,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "700",
     // textTransform: "uppercase",
   },
+  subTitle: {
+    fontSize: 12
+  }
 });
 
 export default CategoryBox;

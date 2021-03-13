@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, FlatList } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -34,7 +34,7 @@ function DashboardScreen({ navigation }) {
   }, []);
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.topSection}>
         <View style={styles.textContainer}>
           <AppText style={styles.heading}>Hei {name} </AppText>
@@ -84,15 +84,34 @@ function DashboardScreen({ navigation }) {
           </View>
         </View>
       </View>
-      <View style={styles.sectionTitleContainer}>
-        <AppText style={styles.sectionTitle}>Trafikkskilt</AppText>
-      </View>
-      <View styles={styles.signsContainer}>
+      <View style={styles.bodyContainer}>
         <ScrollView
-          contentContainerStyle={styles.SignsScrollContainer}
+          contentContainerStyle={styles.TipsScrollContainer}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
+          <TipsBox
+            title="Beregne bremselengde"
+            subTitle="For å beregne bremselengde, multipliser farten med"
+            image={require("../assets/images/dangersigns/100_1.jpg")}
+          />
+          <TipsBox
+            title="Beregne bremselengde"
+            subTitle="For å beregne bremselengde, multipliser farten med"
+            image={require("../assets/images/dangersigns/100_1.jpg")}
+          />
+          <TipsBox
+            title="Beregne bremselengde"
+            subTitle="For å beregne bremselengde, multipliser farten med"
+            image={require("../assets/images/dangersigns/100_1.jpg")}
+          />
+          <TipsBox
+            title="Beregne bremselengde"
+            subTitle="For å beregne bremselengde, multipliser farten med"
+            image={require("../assets/images/dangersigns/100_1.jpg")}
+          />
+        </ScrollView>
+        <View style={styles.signsContainer}>
           {categories.map((category) => (
             <CategoryBox
               key={category.id}
@@ -103,49 +122,25 @@ function DashboardScreen({ navigation }) {
               }
             />
           ))}
-        </ScrollView>
+        </View>
       </View>
-      <View style={styles.sectionTitleContainer}>
-        <AppText style={styles.sectionTitle}>Teoritips</AppText>
-      </View>
-      <ScrollView
-        contentContainerStyle={styles.TipsScrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <TipsBox
-          title="Beregne bremselengde"
-          subTitle="For å beregne bremselengde, multipliser farten med"
-          image={require("../assets/images/dangersigns/100_1.jpg")}
-        />
-        <TipsBox
-          title="Beregne bremselengde"
-          subTitle="For å beregne bremselengde, multipliser farten med"
-          image={require("../assets/images/dangersigns/100_1.jpg")}
-        />
-        <TipsBox
-          title="Beregne bremselengde"
-          subTitle="For å beregne bremselengde, multipliser farten med"
-          image={require("../assets/images/dangersigns/100_1.jpg")}
-        />
-        <TipsBox
-          title="Beregne bremselengde"
-          subTitle="For å beregne bremselengde, multipliser farten med"
-          image={require("../assets/images/dangersigns/100_1.jpg")}
-        />
-      </ScrollView>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+  },
   topSection: {
-    height: 200,
+    height: 190,
     backgroundColor: colors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
   textContainer: {
-    padding: 30,
+    padding: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -178,25 +173,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 50,
   },
-  sectionTitleContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 30,
-    // backgroundColor: colors.white,
-    marginTop: 5,
+  bodyContainer: {
+    paddingHorizontal: 10, 
   },
-  sectionTitle: {
-    fontWeight: "700",
-  },
-  signsContainer: {},
-  SignsScrollContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    // paddingVertical: 10,
+  signsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   TipsScrollContainer: {
+    flexDirection: 'row',
     justifyContent: "space-around",
+    alignItems: "center",
     // marginTop: 20,
   },
 });

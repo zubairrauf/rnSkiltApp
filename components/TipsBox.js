@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import colors from "../config/colors";
 
-function TipsBox({ color = "white", image, onPress, subTitle, title }) {
+function TipsBox({ color = "light", image, onPress, subTitle, title }) {
   return (
     <TouchableOpacity
       style={[styles.box, { backgroundColor: colors[color] }]}
@@ -23,21 +23,22 @@ function TipsBox({ color = "white", image, onPress, subTitle, title }) {
 const styles = StyleSheet.create({
   box: {
     alignItems: "center",
+    borderWidth: 3,
     borderColor: colors.white,
-    borderRadius: 5,
-    borderWidth: 2,
     flexDirection: "row",
     height: 100,
     justifyContent: "space-between",
     margin: 5,
   },
   imageContainer: {
-    // padding: 10,
     alignItems: "center",
     justifyContent: "center",
     width: 100,
     height: "100%",
-    borderRadius: 10,
+    borderColor: colors.primary,
+    borderTopEndRadius: 50,
+    borderBottomEndRadius: 50,
+    backgroundColor: colors.white,
   },
   image: {
     height: 50,
