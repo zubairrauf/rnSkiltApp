@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MySignsContext } from "../context/MySignsContext";
 import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
+import AppButton from "../components/AppButton";
 import CategoryBox from "../components/CategoryBox";
 import TipsBox from "../components/TipsBox";
 import { tipsData } from "../data/tipsData";
@@ -53,59 +54,21 @@ function DashboardScreen({ navigation }) {
         <View style={styles.textContainer}>
           <AppText style={styles.heading}>Hei {name} </AppText>
           <AppText style={styles.description}>
-            Velg en kategori for å lære traffikkskilt eller ta en quizz.
+            Les teoritips eller velg en kategori for å lære trafikkskilt. Ta
+            tester for å se hvor mye du har lært.
           </AppText>
         </View>
-        <View style={styles.statsContainer}>
-          <View style={styles.statsBox}>
-            <MaterialCommunityIcons
-              name="star"
-              size={10}
-              color={colors.dark}
-              style={styles.icon}
-            />
-            <SignsScoreContext.Consumer>
-              {({ signsScore }) => (
-                <AppText
-                  onPress={() =>
-                    navigation.navigate("Test", { slug: "mySigns" })
-                  }
-                >
-                  {signsScore[0] ? signsScore[signsScore.length - 1] : 0} poeng
-                  i siste test
-                </AppText>
-              )}
-            </SignsScoreContext.Consumer>
-          </View>
-          <View style={styles.statsBox}>
-            <MaterialCommunityIcons
-              name="folder-open"
-              size={10}
-              color={colors.dark}
-              style={styles.icon}
-            />
-            <MySignsContext.Consumer>
-              {({ mySigns }) => (
-                <AppText
-                  onPress={() =>
-                    navigation.navigate("MySigns", { slug: "mySigns" })
-                  }
-                >
-                  {`${mySigns.length} skilt i huskelisten`}
-                </AppText>
-              )}
-            </MySignsContext.Consumer>
-          </View>
-        </View>
       </View>
-      <View style={styles.bodyContainer}>
+      <View style={styles.tipsContainer}>
         <ScrollView
-          contentContainerStyle={styles.TipsScrollContainer}
+          contentContainerStyle={styles.tipsScrollContainer}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
           {tipsToDisplay}
         </ScrollView>
+      </View>
+      <View style={styles.bodyContainer}>
         <View style={styles.signsContainer}>
           {categories.map((category) => (
             <CategoryBox
@@ -129,59 +92,44 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   topSection: {
-    height: 190,
-    backgroundColor: colors.primary,
-    justifyContent: "center",
+    flex: 1,
     alignItems: "center",
+    backgroundColor: colors.primary,
+    height: 180,
+    justifyContent: "center",
   },
   textContainer: {
-    padding: 20,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
   },
   heading: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "700",
   },
   description: {
     textAlign: "center",
   },
-  statsContainer: {
-    height: 60,
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-    position: "absolute",
-    bottom: 0,
+  tipsContainer: {
+    marginTop: -50,
+    marginBottom: 10,
   },
-  statsBox: {
-    backgroundColor: colors.secondary,
-    padding: 10,
-    width: "49%",
-    flexDirection: "row",
+  tipsScrollContainer: {
     alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  icon: {
-    padding: 10,
-    marginRight: 10,
-    backgroundColor: colors.primary,
-    borderRadius: 50,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   bodyContainer: {
+    flex: 2,
+    justifyContent: "center",
     paddingHorizontal: 10,
   },
   signsContainer: {
+    alignItems: "center",
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  TipsScrollContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    // marginTop: 20,
+    justifyContent: "center",
   },
 });
 

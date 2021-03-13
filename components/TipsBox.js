@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textContainer: {
-    backgroundColor: colors.light,
+    // backgroundColor: colors.light,
     flex: 1,
     height: "100%",
     width: 190,

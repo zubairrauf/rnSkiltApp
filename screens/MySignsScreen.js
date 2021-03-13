@@ -37,7 +37,6 @@ function SignsScreen() {
           }
         }}
       </MySignsContext.Consumer>
-      <AppButton title="Flashcards" />
     </Screen>
   );
 }
