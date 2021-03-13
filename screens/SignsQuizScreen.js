@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Image, View, Vibration, Alert } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  View,
+  Vibration,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import {
   AdMobBanner,
   AdMobInterstitial,
@@ -12,6 +19,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
+import AppIcon from "../components/AppIcon";
+import AppHeader from "../components/AppHeader";
 import Screen from "../components/Screen";
 import { signsData } from "../data/signsData";
 import { shuffleArray, isEmpty } from "../utils/helperFunctions";
@@ -170,7 +179,7 @@ function SignsQuizScreen({ route, navigation }) {
             onPress: () => resetQuiz(),
           },
           {
-            text: "Avbryt",
+            text: "Se svarene",
             onPress: () => console.log("Avbryt pressed"),
           },
         ],
@@ -237,106 +246,100 @@ function SignsQuizScreen({ route, navigation }) {
   return (
     <Screen style={styles.container}>
       <Eclips />
-      <View style={styles.quizContainer}>
-        <View style={styles.statsContainer}>
-          <AppText style={styles.stats}>Poeng: {score}</AppText>
-          <AppText style={styles.stats}>
-            {currentIndex + 1} av {questions.length}
-          </AppText>
-        </View>
-        <View style={styles.headerContainer}>
-          <AppText style={styles.question}>
-            {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
-          </AppText>
-          {questions[currentIndex] && (
-            <Image style={styles.image} source={questions[currentIndex].img} />
-          )}
-        </View>
-        <View style={styles.optionsContainer}>
-          <QuizOptions
-            style={styles.option}
-            onPress={() => handleOptionClick(0)}
-            handleIcon={resultIcons[0]}
-          >
-            {randomOptions[currentIndex]
-              ? randomOptions[currentIndex][0]
-              : "loading"}
-          </QuizOptions>
-          <QuizOptions
-            onPress={() => handleOptionClick(1)}
-            handleIcon={resultIcons[1]}
-          >
-            {randomOptions[currentIndex]
-              ? randomOptions[currentIndex][1]
-              : "loading"}
-          </QuizOptions>
-          <QuizOptions
-            onPress={() => handleOptionClick(2)}
-            handleIcon={resultIcons[2]}
-          >
-            {randomOptions[currentIndex]
-              ? randomOptions[currentIndex][2]
-              : "loading"}
-          </QuizOptions>
-          <QuizOptions
-            onPress={() => handleOptionClick(3)}
-            handleIcon={resultIcons[3]}
-          >
-            {randomOptions[currentIndex]
-              ? randomOptions[currentIndex][3]
-              : "loading"}
-          </QuizOptions>
-        </View>
-        <View
-          style={[styles.resultContainer, { backgroundColor: resultColor }]}
-        >
-          <AppText style={styles.result}>
-            {correctIndex.indexOf(currentIndex) !== -1
-              ? "Du svarte riktig."
-              : incorrectIndex.indexOf(currentIndex) !== -1
-              ? "Du svarte feil."
-              : "Du har ikke svart ennå."}
-          </AppText>
-        </View>
-        <View style={styles.explainationContainer}>
-          <AppText style={styles.explaination}>
-            {correctIndex.indexOf(currentIndex) !== -1
-              ? questions[currentIndex] && questions[currentIndex].description
-              : incorrectIndex.indexOf(currentIndex) !== -1
-              ? questions[currentIndex] && questions[currentIndex].description
-              : "Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. "}
-          </AppText>
-        </View>
-        <View style={styles.buttonContainer}>
-          <AppButton
-            color="secondary"
-            title="Forrige"
-            onPress={handlePrevButton}
-            width="30%"
-          />
-          {!isRunning && (
-            <AppButton
-              color="secondary"
-              title="Start"
-              onPress={handleStartButton}
-              width="30%"
-            />
-          )}
-          <AppButton
-            color="secondary"
-            title="Neste"
-            onPress={handleNextButton}
-            width="30%"
-            style={styles.button}
-          />
-        </View>
+      <AppHeader title="Skilt test" />
+      <View style={styles.statsContainer}>
+        <AppText style={styles.stats}>Poeng: {score}</AppText>
+        <AppText style={styles.stats}>
+          {currentIndex + 1} av {questions.length}
+        </AppText>
       </View>
-      <View style={styles.adContainer}>
-        {/* <AdMobBanner
-          bannerSize="banner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-       />*/}
+      <View style={styles.questionContainer}>
+        <AppText style={styles.question}>
+          {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
+        </AppText>
+        {questions[currentIndex] && (
+          <Image style={styles.image} source={questions[currentIndex].img} />
+        )}
+      </View>
+      <View style={styles.optionsContainer}>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(0)}
+          handleIcon={resultIcons[0]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][0]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(1)}
+          handleIcon={resultIcons[1]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][1]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(2)}
+          handleIcon={resultIcons[2]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][2]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(3)}
+          handleIcon={resultIcons[3]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][3]
+            : "loading"}
+        </QuizOptions>
+      </View>
+      <View style={[styles.resultContainer, { backgroundColor: resultColor }]}>
+        <AppText style={styles.result}>
+          {correctIndex.indexOf(currentIndex) !== -1
+            ? "Du svarte riktig."
+            : incorrectIndex.indexOf(currentIndex) !== -1
+            ? "Du svarte feil."
+            : "Du har ikke svart ennå."}
+        </AppText>
+      </View>
+      <View style={styles.explainationContainer}>
+        <AppText style={styles.explaination}>
+          {correctIndex.indexOf(currentIndex) !== -1
+            ? questions[currentIndex] && questions[currentIndex].description
+            : incorrectIndex.indexOf(currentIndex) !== -1
+            ? questions[currentIndex] && questions[currentIndex].description
+            : "Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. "}
+        </AppText>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={handlePrevButton}>
+          <AppIcon
+            backgroundColor={colors.dark}
+            iconColor={colors.light}
+            name="chevron-left"
+          />
+        </TouchableOpacity>
+        {!isRunning && (
+          <AppButton
+            color="secondary"
+            title="Start ny test"
+            onPress={handleStartButton}
+            width="50%"
+          />
+        )}
+        <TouchableOpacity onPress={handleNextButton}>
+          <AppIcon
+            backgroundColor={colors.dark}
+            iconColor={colors.light}
+            name="chevron-right"
+          />
+        </TouchableOpacity>
       </View>
     </Screen>
   );
@@ -348,36 +351,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  quizContainer: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-  },
   statsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    padding: 10,
-    marginTop: 5,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    shadowColor: colors.dark,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginTop: -30,
+    marginBottom: 10,
+    borderStartWidth: 2,
+    borderEndWidth: 2,
+    // shadowColor: colors.dark,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5,
   },
   stats: {
-    fontSize: 14,
     fontWeight: "700",
   },
   question: {
     fontWeight: "bold",
     margin: 5,
   },
-  headerContainer: {
+  questionContainer: {
     backgroundColor: colors.white,
     padding: 10,
     width: "100%",
@@ -386,33 +386,34 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 5,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
     margin: 10,
   },
   optionsContainer: {
-    display: "flex",
     justifyContent: "center",
     width: "100%",
-    paddingTop: -10,
+    marginTop: -10,
   },
-  option: {},
+  option: {
+    paddingVertical: 5,
+  },
   resultContainer: {
+    backgroundColor: "orange",
     justifyContent: "center",
     width: "100%",
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     marginVertical: 5,
     borderRadius: 5,
     // height: 50
   },
   result: {
-    fontSize: 16,
     textAlign: "center",
   },
   explainationContainer: {
     flex: 1,
-    padding: 10,
+    // padding: 10,
   },
   explaination: {
     fontSize: 14,
@@ -421,10 +422,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
-  },
-  adContainer: {
-    marginBottom: 5,
+    padding: 10,
   },
 });
 

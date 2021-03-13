@@ -13,16 +13,40 @@ import { SignsScoreContext } from "../context/SignsScoreContext";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
+import AppHeader from "../components/AppHeader";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
 
 function QuizOverviewScreen({ navigation }) {
-  const chartConfig = {
+  const deviceWidth = Dimensions.get("window").width;
+  const lineChartConfig = {
     backgroundColor: colors.primary,
-    backgroundGradientFrom: colors.secondary,
-    backgroundGradientTo: colors.primary,
+    backgroundGradientFrom: colors.light,
+    backgroundGradientTo: colors.white,
+    fillShadowGradient: colors.white,
+    fillShadowGradientOpacity: 0,
     decimalPlaces: 0, // optional, defaults to 2dp
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    color: () => colors.secondary,
+    strokeWidth: 3,
+    labelColor: () => colors.dark,
+    style: {
+      borderRadius: 16,
+    },
+    propsForDots: {
+      r: "5",
+      strokeWidth: "2",
+      stroke: colors.primary,
+    },
+  };
+  const barChartConfig = {
+    backgroundColor: colors.primary,
+    backgroundGradientFrom: colors.light,
+    backgroundGradientTo: colors.white,
+    fillShadowGradient: colors.secondary,
+    fillShadowGradientOpacity: 1,
+    decimalPlaces: 0, // optional, defaults to 2dp
+    color: (opacity = 1) => colors.primary,
+    barPercentage: 1,
     labelColor: () => colors.dark,
     style: {
       borderRadius: 16,
@@ -38,59 +62,66 @@ function QuizOverviewScreen({ navigation }) {
       {({ signsScore, setSignsScore }) => (
         <Screen style={styles.container}>
           <Eclips />
+          <AppHeader title="Dine tester" />
           <View style={styles.header}>
-            <AppText style={styles.heading}>Kjør i vei - Dine tester</AppText>
             <AppText style={styles.description}>
               Her kan du se resultat av 10 siste tester. Ta flere tester og se
               om du kan gjøre det bedre enn førrige gang. Øvelse gjør mester.
             </AppText>
           </View>
-          <View style={styles.chartsCotnainer}>
+          <View style={styles.chartsContainer}>
             <LineChart
               data={{
                 datasets: [
                   {
-                    data: signsScore,
+                    data:
+                      signsScore.length > 0 ? signsScore : [5, 10, 15, 20, 25],
                   },
                 ],
 
-                legend: ["Poeng"],
+                legend: ["Dine poeng"],
               }}
-              width={Dimensions.get("window").width - 10} // from react-native
+              width={deviceWidth - 20}
               height={150}
               yAxisInterval={1} // optional, defaults to 1
-              chartConfig={chartConfig}
+              chartConfig={lineChartConfig}
               bezier
               style={{
-                marginVertical: 8,
+                marginVertical: 5,
                 borderRadius: 10,
               }}
             />
             <BarChart
               style={{
                 marginVertical: 8,
-                borderRadius: 10,
+                borderRadius: 5,
               }}
               data={{
                 datasets: [
                   {
-                    data: signsScore,
+                    data:
+                      signsScore.length > 0 ? signsScore : [5, 10, 15, 20, 25],
                   },
                 ],
               }}
-              width={Dimensions.get("window").width - 10}
+              width={deviceWidth - 20}
               height={150}
-              chartConfig={chartConfig}
+              chartConfig={barChartConfig}
+              style={{
+                marginVertical: 8,
+                borderRadius: 5,
+              }}
             />
           </View>
           <View style={styles.buttonsContainer}>
-            <AppButton title="Teori test" color="secondary" width="40%" />
             <AppButton
-              title="Skilt test"
+              title="Start skilt test"
               onPress={() =>
-                navigation.navigate("SignsTest", { signsScore, setSignsScore })
+                navigation.navigate("SignsTest", {
+                  signsScore,
+                  setSignsScore,
+                })
               }
-              width="40%"
             />
           </View>
         </Screen>
@@ -105,21 +136,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   header: {
-    padding: 20,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: "700",
-    textAlign: "center",
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    marginBottom: 10,
   },
   description: {
-    fontSize: 14,
-    marginVertical: 10,
+    textAlign: "center",
+  },
+  chartsContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonsContainer: {
+    flex: 1,
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
