@@ -28,7 +28,7 @@ const AppNavigator = () => (
                 iconName = focused ? "home" : "home-outline";
               } else if (route.name === "Tips") {
                 iconName = focused ? "book" : "book-outline";
-              } else if (route.name === "Mine skilt") {
+              } else if (route.name === "MySigns") {
                 iconName = focused ? "md-folder-sharp" : "md-folder-outline";
               } else if (route.name === "Test") {
                 iconName = focused ? "trail-sign-sharp" : "trail-sign-outline";
@@ -49,7 +49,7 @@ const AppNavigator = () => (
           <Tab.Screen name="Home" component={HomeNavigator} />
           <Tab.Screen name="Tips" component={TheoryTipsScreen} />
           <Tab.Screen
-            name="Mine skilt"
+            name="MySigns"
             component={MySignsScreen}
             options={{
               tabBarBadge: mySigns.length,

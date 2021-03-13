@@ -45,8 +45,8 @@ function DashboardScreen({ navigation }) {
         <View style={styles.statsContainer}>
           <View style={styles.statsBox}>
             <MaterialCommunityIcons
-              name="star-four-points"
-              size={20}
+              name="star"
+              size={10}
               color={colors.dark}
               style={styles.icon}
             />
@@ -54,10 +54,11 @@ function DashboardScreen({ navigation }) {
               {({ signsScore }) => (
                 <AppText
                   onPress={() =>
-                    navigation.navigate("Quiz", { slug: "mySigns" })
+                    navigation.navigate("Test", { slug: "mySigns" })
                   }
                 >
                   {signsScore[0] ? signsScore[signsScore.length - 1] : 0} poeng
+                  i siste test
                 </AppText>
               )}
             </SignsScoreContext.Consumer>
@@ -65,7 +66,7 @@ function DashboardScreen({ navigation }) {
           <View style={styles.statsBox}>
             <MaterialCommunityIcons
               name="folder-open"
-              size={20}
+              size={10}
               color={colors.dark}
               style={styles.icon}
             />
@@ -73,10 +74,10 @@ function DashboardScreen({ navigation }) {
               {({ mySigns }) => (
                 <AppText
                   onPress={() =>
-                    navigation.navigate("Signs", { slug: "mySigns" })
+                    navigation.navigate("MySigns", { slug: "mySigns" })
                   }
                 >
-                  {`${mySigns.length} skilt lagret`}
+                  {`${mySigns.length} skilt i huskelisten`}
                 </AppText>
               )}
             </MySignsContext.Consumer>

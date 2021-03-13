@@ -357,18 +357,10 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginTop: -30,
+    marginTop: -10,
     marginBottom: 10,
-    borderStartWidth: 2,
-    borderEndWidth: 2,
-    // shadowColor: colors.dark,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
+    borderStartWidth: 3,
+    borderEndWidth: 3,
   },
   stats: {
     fontWeight: "700",
@@ -393,10 +385,7 @@ const styles = StyleSheet.create({
   optionsContainer: {
     justifyContent: "center",
     width: "100%",
-    marginTop: -10,
-  },
-  option: {
-    paddingVertical: 5,
+    marginTop: 5,
   },
   resultContainer: {
     backgroundColor: "orange",

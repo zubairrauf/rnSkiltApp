@@ -7,6 +7,7 @@ import Screen from "../components/Screen";
 import SignsList from "../components/SignsList";
 import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
+import AppButton from "../components/AppButton";
 
 function SignsScreen() {
   return (
@@ -36,6 +37,7 @@ function SignsScreen() {
           }
         }}
       </MySignsContext.Consumer>
+      <AppButton title="Flashcards" />
     </Screen>
   );
 }

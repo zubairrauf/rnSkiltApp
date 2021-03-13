@@ -1,45 +1,48 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
 
-import AppText from './AppText'
-import AppIcon from './AppIcon'
-import colors from '../config/colors'
+import AppText from "./AppText";
+import AppIcon from "./AppIcon";
+import colors from "../config/colors";
 
-function QuizOptions({children, style, handleIcon, ...otherProps}) {
+function QuizOptions({ children, style, handleIcon, ...otherProps }) {
   return (
-    <View style={[styles.container, {style}]}>
-        <AppText style={[styles.option, style]} {...otherProps}>
-            {children}
-        </AppText>
-        <View style={styles.iconContainer}>
-          {handleIcon==='correct' && <AppIcon name='check' size={30} backgroundColor={colors.primary}/>}
-          {handleIcon==='incorrect' && <AppIcon name='cross' size={30} backgroundColor={colors.danger}/>}
-        </View>
+    <View style={[styles.container, { style }]}>
+      <AppText style={[styles.option, style]} {...otherProps}>
+        {children}
+      </AppText>
+      <View style={styles.iconContainer}>
+        {handleIcon === "correct" && (
+          <AppIcon name="check" size={30} backgroundColor={colors.primary} />
+        )}
+        {handleIcon === "incorrect" && (
+          <AppIcon name="cross" size={30} backgroundColor={colors.danger} />
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 15,
     paddingHorizontal: 10,
     marginVertical: 5,
     borderWidth: 1,
     borderColor: colors.medium,
     borderRadius: 5,
-    // height: 40,
+    backgroundColor: colors.white,
   },
   option: {
-      fontSize: 16,
-      width: '100%'
+    width: "100%",
   },
   iconContainer: {
-    position: 'absolute',
-    right: 4,
-    top: 4
-  }
+    position: "absolute",
+    right: 6,
+    top: 10,
+  },
 });
 
 export default QuizOptions;

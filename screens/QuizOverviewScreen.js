@@ -46,86 +46,85 @@ function QuizOverviewScreen({ navigation }) {
     fillShadowGradientOpacity: 1,
     decimalPlaces: 0, // optional, defaults to 2dp
     color: (opacity = 1) => colors.primary,
-    barPercentage: 1,
+    barPercentage: 0.7,
     labelColor: () => colors.dark,
     style: {
       borderRadius: 16,
     },
-    propsForDots: {
-      r: "5",
-      strokeWidth: "1",
-      stroke: colors.dark,
-    },
   };
   return (
     <SignsScoreContext.Consumer>
-      {({ signsScore, setSignsScore }) => (
-        <Screen style={styles.container}>
-          <Eclips />
-          <AppHeader title="Dine tester" />
-          <View style={styles.header}>
-            <AppText style={styles.description}>
-              Her kan du se resultat av 10 siste tester. Ta flere tester og se
-              om du kan gjøre det bedre enn førrige gang. Øvelse gjør mester.
-            </AppText>
-          </View>
-          <View style={styles.chartsContainer}>
-            <LineChart
-              data={{
-                datasets: [
-                  {
-                    data:
-                      signsScore.length > 0 ? signsScore : [5, 10, 15, 20, 25],
-                  },
-                ],
+      {({ signsScore, setSignsScore }) => {
+        let chartData =
+          signsScore.length > 0
+            ? signsScore.slice(Math.max(signsScore.length - 10, 0))
+            : [5, 10, 15, 20, 25];
+        return (
+          <Screen style={styles.container}>
+            <Eclips />
+            <AppHeader title="Dine tester" />
+            <View style={styles.header}>
+              <AppText style={styles.description}>
+                Her kan du se resultat av 10 siste tester. Ta flere tester og se
+                om du kan gjøre det bedre enn førrige gang. Øvelse gjør mester.
+              </AppText>
+            </View>
+            <View style={styles.chartsContainer}>
+              <LineChart
+                data={{
+                  datasets: [
+                    {
+                      data: chartData,
+                    },
+                  ],
 
-                legend: ["Dine poeng"],
-              }}
-              width={deviceWidth - 20}
-              height={150}
-              yAxisInterval={1} // optional, defaults to 1
-              chartConfig={lineChartConfig}
-              bezier
-              style={{
-                marginVertical: 5,
-                borderRadius: 10,
-              }}
-            />
-            <BarChart
-              style={{
-                marginVertical: 8,
-                borderRadius: 5,
-              }}
-              data={{
-                datasets: [
-                  {
-                    data:
-                      signsScore.length > 0 ? signsScore : [5, 10, 15, 20, 25],
-                  },
-                ],
-              }}
-              width={deviceWidth - 20}
-              height={150}
-              chartConfig={barChartConfig}
-              style={{
-                marginVertical: 8,
-                borderRadius: 5,
-              }}
-            />
-          </View>
-          <View style={styles.buttonsContainer}>
-            <AppButton
-              title="Start skilt test"
-              onPress={() =>
-                navigation.navigate("SignsTest", {
-                  signsScore,
-                  setSignsScore,
-                })
-              }
-            />
-          </View>
-        </Screen>
-      )}
+                  legend: ["Dine poeng"],
+                }}
+                width={deviceWidth - 20}
+                height={150}
+                yAxisInterval={1} // optional, defaults to 1
+                chartConfig={lineChartConfig}
+                bezier
+                style={{
+                  marginVertical: 5,
+                  borderRadius: 10,
+                }}
+              />
+              <BarChart
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 5,
+                }}
+                data={{
+                  datasets: [
+                    {
+                      data: chartData,
+                    },
+                  ],
+                }}
+                width={deviceWidth - 20}
+                height={150}
+                chartConfig={barChartConfig}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 5,
+                }}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <AppButton
+                title="Start skilt test"
+                onPress={() =>
+                  navigation.navigate("SignsTest", {
+                    signsScore,
+                    setSignsScore,
+                  })
+                }
+              />
+            </View>
+          </Screen>
+        );
+      }}
     </SignsScoreContext.Consumer>
   );
 }
