@@ -8,6 +8,7 @@ import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
 import CategoryBox from "../components/CategoryBox";
 import TipsBox from "../components/TipsBox";
+import { tipsData } from "../data/tipsData";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -32,6 +33,19 @@ function DashboardScreen({ navigation }) {
   useEffect(() => {
     getName("kivName");
   }, []);
+
+  //Creating TipsBox for first few items in TipsData
+  let tipsToDisplay = tipsData
+    .slice(0, 2)
+    .map((tip) => (
+      <TipsBox
+        key={tip.id}
+        title={tip.title}
+        subTitle={tip.description}
+        image={tip.img}
+        onPress={() => console.log("Tips")}
+      />
+    ));
 
   return (
     <View style={styles.container}>
@@ -90,26 +104,7 @@ function DashboardScreen({ navigation }) {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <TipsBox
-            title="Beregne bremselengde"
-            subTitle="For å beregne bremselengde, multipliser farten med"
-            image={require("../assets/images/dangersigns/100_1.jpg")}
-          />
-          <TipsBox
-            title="Beregne bremselengde"
-            subTitle="For å beregne bremselengde, multipliser farten med"
-            image={require("../assets/images/dangersigns/100_1.jpg")}
-          />
-          <TipsBox
-            title="Beregne bremselengde"
-            subTitle="For å beregne bremselengde, multipliser farten med"
-            image={require("../assets/images/dangersigns/100_1.jpg")}
-          />
-          <TipsBox
-            title="Beregne bremselengde"
-            subTitle="For å beregne bremselengde, multipliser farten med"
-            image={require("../assets/images/dangersigns/100_1.jpg")}
-          />
+          {tipsToDisplay}
         </ScrollView>
         <View style={styles.signsContainer}>
           {categories.map((category) => (
@@ -131,7 +126,7 @@ function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
+    width: "100%",
   },
   topSection: {
     height: 190,
@@ -174,16 +169,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   bodyContainer: {
-    paddingHorizontal: 10, 
+    paddingHorizontal: 10,
   },
   signsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   TipsScrollContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     // marginTop: 20,

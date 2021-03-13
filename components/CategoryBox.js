@@ -1,5 +1,11 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 
 import colors from "../config/colors";
 
@@ -26,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5,
     padding: 5,
-    width: "45%",
+    width: (Dimensions.get("window").width - 40) / 2,
     height: 75,
     shadowColor: "#303030",
     shadowOffset: { width: 0, height: 2 },
@@ -44,8 +50,8 @@ const styles = StyleSheet.create({
     // textTransform: "uppercase",
   },
   subTitle: {
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });
 
 export default CategoryBox;

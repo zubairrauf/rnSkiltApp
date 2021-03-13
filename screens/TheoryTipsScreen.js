@@ -1,31 +1,29 @@
 import React from "react";
 import { Image, StyleSheet, ScrollView, View } from "react-native";
 
-import AppButton from "../components/AppButton";
+import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
 
 import TipsBox from "../components/TipsBox";
+import { tipsData } from "../data/tipsData";
 
 function TheoryTipsScreen({ navigation }) {
-  const tips = require("../data/tipsData.json");
-  console.log("Tipsdata", tips);
   return (
     <Screen style={styles.container}>
       <Eclips />
-      <AppText style={styles.heading}>Kjør i vei</AppText>
-      <AppText>Teoritips</AppText>
+      <AppHeader title="Teori tips" />
       <ScrollView
         contentContainerStyle={styles.SignsScrollContainer}
         showsHorizontalScrollIndicator={false}
       >
-        {tips.map((tip) => (
+        {tipsData.map((tip) => (
           <TipsBox
             key={tip.id}
             title={tip.title}
             subTitle={tip.description}
-            image={require("../assets/images/dangersigns/100_1.jpg")}
+            image={tip.img}
             onPress={() => console.log("Tips")}
           />
         ))}
