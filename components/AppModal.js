@@ -11,7 +11,7 @@ function AppModal({ modalVisible, setModalVisible, title, description, image }) 
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
+          setModalVisible(false)
     }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
