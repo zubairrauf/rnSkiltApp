@@ -7,7 +7,7 @@ import AppText from "./AppText";
 function AppModal({ modalVisible, setModalVisible, title, description, image }) { 
   return (
     <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -37,11 +37,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
+    backgroundColor: 'rgba(5,5,5, 0.7)'
   },
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 25,
+    borderRadius: 5,
     padding: 25,
     alignItems: "center",
     shadowColor: colors.dark,

@@ -12,6 +12,7 @@ function AppListItem({ title, subTitle, image, icon, onPress }) {
   const handleClick = () => {
     setModalVisible(true)
   }
+  
   return (
     <View style={styles.container}>
     <AppModal modalVisible={modalVisible} setModalVisible={setModalVisible} title={title}  description={subTitle} image={image}/>
