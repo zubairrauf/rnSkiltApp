@@ -1,61 +1,32 @@
 import React, { useState } from "react";
-import {
-  Image,
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { Image, View, StyleSheet, TouchableHighlight, TouchableWithoutFeedback } from "react-native";
 
 import colors from "../config/colors";
 import AppText from "./AppText";
-import AppIcon from "../components/AppIcon";
+import AppIcon from '../components/AppIcon'
+import AppModal from '../components/AppModal'
+
 
 function AppListItem({ title, subTitle, image, icon, onPress }) {
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const [ modalVisible, setModalVisible ] = useState(false)
+  const handleClick = () => {
+    setModalVisible(true)
+  }
   return (
     <View style={styles.container}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          console.log("Modal has been closed.");
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <AppText style={styles.modalTitle}>{title}</AppText>
-            {image && <Image style={styles.modalImage} source={image} />}
-            <Text style={styles.modalDescription}>{subTitle}</Text>
-            <TouchableHighlight
-              style={styles.closeButton}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.textStyle}>Lukk</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal>
-      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+    <AppModal modalVisible={modalVisible} setModalVisible={setModalVisible} title={title}  description={subTitle} image={image}/>
+      <TouchableWithoutFeedback onPress={handleClick}>
         <View style={styles.itemContainer}>
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            <AppText style={styles.title}>{title}</AppText>
+              <AppText style={styles.title}>{title}</AppText>
           </View>
         </View>
       </TouchableWithoutFeedback>
       <View style={styles.iconContainer}>
-        <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-          <AppIcon name={icon} />
-        </TouchableHighlight>
+          <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+              <AppIcon name={icon} />
+          </TouchableHighlight>
       </View>
     </View>
   );
@@ -65,18 +36,19 @@ export default AppListItem;
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 5,
+    borderRadius: 15,
     flexDirection: "row",
     paddingHorizontal: 10,
     paddingVertical: 15,
     margin: 5,
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: colors.white,
   },
   itemContainer: {
-    width: "85%",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '85%',
+    flexDirection: 'row',
+    alignItems: 'center',
+
   },
   iconContainer: {
     // backgroundColor: 'orange'
@@ -101,16 +73,16 @@ const styles = StyleSheet.create({
   //Modal styles
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
-    borderRadius: 25,
-    padding: 25,
-    alignItems: "center",
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
     shadowColor: colors.dark,
     shadowOffset: {
       width: 0,
@@ -118,7 +90,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 5,
   },
   closeButton: {
     backgroundColor: colors.dark,
@@ -128,22 +100,21 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalImage: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150
   },
   modalTitle: {
-    fontWeight: "700",
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: 'center',
   },
   modalDescription: {
-    textAlign: "left",
-    marginTop: 10,
-    marginBottom: 15,
-  },
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 15
+  }
 });

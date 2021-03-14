@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native';
+import React from 'react';
+import { View, Text, Image, StyleSheet, Modal, TouchableHighlight } from 'react-native';
 
 import colors from "../config/colors";
 import AppText from "./AppText";
 
-function AppModal({ title, description, image, category }) {
-    const [ modalVisible, setModalVisible ] = useState(false)
-
-    const showModal = () => {
-        setModalVisible(true)
-    }
-
+function AppModal({ modalVisible, setModalVisible, title, description, image }) { 
   return (
     <Modal
         animationType="slide"
