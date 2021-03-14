@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: colors.primary,
-    height: 180,
     justifyContent: "center",
   },
   textContainer: {
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
   },
   tipsContainer: {
     marginTop: -50,
-    marginBottom: 10,
   },
   tipsScrollContainer: {
     alignItems: "center",
@@ -120,13 +118,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   bodyContainer: {
+    alignItems: 'center',
     flex: 2,
     justifyContent: "center",
     paddingHorizontal: 10,
   },
   signsContainer: {
     alignItems: "center",
-    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",

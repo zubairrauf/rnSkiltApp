@@ -3,10 +3,6 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import {
   LineChart,
   BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
 } from "react-native-chart-kit";
 
 import { SignsScoreContext } from "../context/SignsScoreContext";
@@ -143,11 +139,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   chartsContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonsContainer: {
-    flex: 1,
+    // flex: 1,
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
