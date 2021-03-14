@@ -34,16 +34,16 @@ function AppModal({ modalVisible, setModalVisible, title, description, image }) 
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
+    backgroundColor: "white",
+    borderRadius: 25,
+    padding: 25,
+    alignItems: "center",
     shadowColor: colors.dark,
     shadowOffset: {
       width: 0,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 10,
   },
   closeButton: {
     backgroundColor: colors.dark,
@@ -61,23 +61,24 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   modalImage: {
-    width: 150,
-    height: 150
+    width: 120,
+    height: 120,
   },
   modalTitle: {
+    fontWeight: "700",
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
   modalDescription: {
-    textAlign: 'center',
-    marginTop: 5,
-    marginBottom: 15
-  }
+    textAlign: "left",
+    marginTop: 10,
+    marginBottom: 15,
+  },
 });
 
 export default AppModal;
