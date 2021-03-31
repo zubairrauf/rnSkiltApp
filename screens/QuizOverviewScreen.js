@@ -111,7 +111,10 @@ function QuizOverviewScreen({ navigation }) {
               <AppButton
                 title="Start skilt test"
                 onPress={() =>
-                  navigation.navigate("SignsTest")
+                  navigation.navigate("SignsTest", {
+                    signsScore,
+                    setSignsScore,
+                  })
                 }
               />
             </View>
