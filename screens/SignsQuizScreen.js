@@ -7,9 +7,16 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync,
+} from "expo-ads-admob";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import AppIcon from "../components/AppIcon";
@@ -21,7 +28,8 @@ import QuizOptions from "../components/QuizOptions";
 import colors from "../config/colors";
 import Eclips from "../components/Eclips";
 
-function SignsQuizScreen({ navigation }) {
+function SignsQuizScreen({ route, navigation }) {
+  const { setSignsScore } = route.params;
 
   //Restart quiz on navigating away and coming back
   useFocusEffect(
@@ -236,110 +244,104 @@ function SignsQuizScreen({ navigation }) {
   //   }
 
   return (
-    <SignsScoreContext.Consumer>
-      {({ signsScore, setSignsScore }) => {
-        return (
-          <Screen style={styles.container}>
-            <Eclips />
-            <AppHeader title="Skilt test" />
-            <View style={styles.questionContainer}>
-              <View style={styles.statsContainer}>
-                <AppText style={styles.stats}>Poeng: {score}</AppText>
-                <AppText style={styles.stats}>
-                  {currentIndex + 1} av {questions.length}
-                </AppText>
-              </View>
-              <AppText style={styles.question}>
-                {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
-              </AppText>
-              {questions[currentIndex] && (
-                <Image style={styles.image} source={questions[currentIndex].img} />
-              )}
-            </View>
-            <View style={styles.optionsContainer}>
-              <QuizOptions
-                style={styles.option}
-                onPress={() => handleOptionClick(0)}
-                handleIcon={resultIcons[0]}
-              >
-                {randomOptions[currentIndex]
-                  ? randomOptions[currentIndex][0]
-                  : "loading"}
-              </QuizOptions>
-              <QuizOptions
-                style={styles.option}
-                onPress={() => handleOptionClick(1)}
-                handleIcon={resultIcons[1]}
-              >
-                {randomOptions[currentIndex]
-                  ? randomOptions[currentIndex][1]
-                  : "loading"}
-              </QuizOptions>
-              <QuizOptions
-                style={styles.option}
-                onPress={() => handleOptionClick(2)}
-                handleIcon={resultIcons[2]}
-              >
-                {randomOptions[currentIndex]
-                  ? randomOptions[currentIndex][2]
-                  : "loading"}
-              </QuizOptions>
-              <QuizOptions
-                style={styles.option}
-                onPress={() => handleOptionClick(3)}
-                handleIcon={resultIcons[3]}
-              >
-                {randomOptions[currentIndex]
-                  ? randomOptions[currentIndex][3]
-                  : "loading"}
-              </QuizOptions>
-            </View>
-            <View style={[styles.resultContainer, { backgroundColor: resultColor }]}>
-              <AppText style={styles.result}>
-                {correctIndex.indexOf(currentIndex) !== -1
-                  ? "Du svarte riktig."
-                  : incorrectIndex.indexOf(currentIndex) !== -1
-                  ? "Du svarte feil."
-                  : "Du har ikke svart ennå."}
-              </AppText>
-            </View>
-            <View style={styles.explainationContainer}>
-              <AppText style={styles.explaination}>
-                {correctIndex.indexOf(currentIndex) !== -1
-                  ? questions[currentIndex] && questions[currentIndex].description
-                  : incorrectIndex.indexOf(currentIndex) !== -1
-                  ? questions[currentIndex] && questions[currentIndex].description
-                  : "Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. "}
-              </AppText>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={handlePrevButton}>
-                <AppIcon
-                  backgroundColor={colors.dark}
-                  iconColor={colors.light}
-                  name="chevron-left"
-                />
-              </TouchableOpacity>
-              {!isRunning && (
-                <AppButton
-                  color="secondary"
-                  title="Start ny test"
-                  onPress={handleStartButton}
-                  width="50%"
-                />
-              )}
-              <TouchableOpacity onPress={handleNextButton}>
-                <AppIcon
-                  backgroundColor={colors.dark}
-                  iconColor={colors.light}
-                  name="chevron-right"
-                />
-              </TouchableOpacity>
-            </View>
-          </Screen>
-        )
-      }}
-    </SignsScoreContext.Consumer>
+    <Screen style={styles.container}>
+      <Eclips />
+      <AppHeader title="Skilt test" />
+      <View style={styles.statsContainer}>
+        <AppText style={styles.stats}>Poeng: {score}</AppText>
+        <AppText style={styles.stats}>
+          {currentIndex + 1} av {questions.length}
+        </AppText>
+      </View>
+      <View style={styles.questionContainer}>
+        <AppText style={styles.question}>
+          {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
+        </AppText>
+        {questions[currentIndex] && (
+          <Image style={styles.image} source={questions[currentIndex].img} />
+        )}
+      </View>
+      <View style={styles.optionsContainer}>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(0)}
+          handleIcon={resultIcons[0]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][0]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(1)}
+          handleIcon={resultIcons[1]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][1]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(2)}
+          handleIcon={resultIcons[2]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][2]
+            : "loading"}
+        </QuizOptions>
+        <QuizOptions
+          style={styles.option}
+          onPress={() => handleOptionClick(3)}
+          handleIcon={resultIcons[3]}
+        >
+          {randomOptions[currentIndex]
+            ? randomOptions[currentIndex][3]
+            : "loading"}
+        </QuizOptions>
+      </View>
+      <View style={[styles.resultContainer, { backgroundColor: resultColor }]}>
+        <AppText style={styles.result}>
+          {correctIndex.indexOf(currentIndex) !== -1
+            ? "Du svarte riktig."
+            : incorrectIndex.indexOf(currentIndex) !== -1
+            ? "Du svarte feil."
+            : "Du har ikke svart ennå."}
+        </AppText>
+      </View>
+      <View style={styles.explainationContainer}>
+        <AppText style={styles.explaination}>
+          {correctIndex.indexOf(currentIndex) !== -1
+            ? questions[currentIndex] && questions[currentIndex].description
+            : incorrectIndex.indexOf(currentIndex) !== -1
+            ? questions[currentIndex] && questions[currentIndex].description
+            : "Velg riktig svar. Du kan hoppe over et spørsmål og komme tilbake til det. Vennligst svar på alle spørsmål for å se resultat. "}
+        </AppText>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={handlePrevButton}>
+          <AppIcon
+            backgroundColor={colors.dark}
+            iconColor={colors.light}
+            name="chevron-left"
+          />
+        </TouchableOpacity>
+        {!isRunning && (
+          <AppButton
+            color="secondary"
+            title="Start ny test"
+            onPress={handleStartButton}
+            width="50%"
+          />
+        )}
+        <TouchableOpacity onPress={handleNextButton}>
+          <AppIcon
+            backgroundColor={colors.dark}
+            iconColor={colors.light}
+            name="chevron-right"
+          />
+        </TouchableOpacity>
+      </View>
+    </Screen>
   );
 }
 
@@ -354,9 +356,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 10,
+    borderRadius: 5,
+    marginTop: -10,
+    marginBottom: 10,
+    borderStartWidth: 3,
+    borderEndWidth: 3,
   },
   stats: {
-    // fontWeight: "700",
+    fontWeight: "700",
   },
   question: {
     fontWeight: "bold",
@@ -364,7 +371,7 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     backgroundColor: colors.white,
-    padding: 5,
+    padding: 10,
     width: "100%",
     alignItems: "center",
     borderTopStartRadius: 5,
@@ -373,19 +380,22 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    margin: 5,
+    margin: 10,
   },
   optionsContainer: {
     justifyContent: "center",
     width: "100%",
+    marginTop: 5,
   },
   resultContainer: {
+    backgroundColor: "orange",
     justifyContent: "center",
     width: "100%",
     paddingVertical: 5,
     paddingHorizontal: 10,
-    // marginVertical: 5,
+    marginVertical: 5,
     borderRadius: 5,
+    // height: 50
   },
   result: {
     textAlign: "center",
