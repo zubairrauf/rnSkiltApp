@@ -9,14 +9,14 @@ import {
 
 import colors from "../config/colors";
 
-function CategoryBox({ title, subTitle, onPress, color = "white" }) {
+function CategoryBox({ title, subTitle, image, onPress, color = "white" }) {
   return (
     <TouchableOpacity
       style={[styles.box, { backgroundColor: colors[color] }]}
       onPress={onPress}
     >
       <Image
-        source={require("../assets/images/dangersigns/100_1.jpg")}
+        source={image}
         style={styles.image}
       />
       <Text style={styles.title}>{title}</Text>

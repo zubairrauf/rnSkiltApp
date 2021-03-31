@@ -1,22 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, FlatList } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { MySignsContext } from "../context/MySignsContext";
 import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
 import CategoryBox from "../components/CategoryBox";
 import TipsBox from "../components/TipsBox";
 import { tipsData } from "../data/tipsData";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
+import { categories } from '../data/categoriesData'
 
 function DashboardScreen({ navigation }) {
   const [name, setName] = useState();
-  const categories = require("../data/categoriesData.json");
 
   //Reading the name from AsynStorage and updating the name state.
   const getName = async (key) => {
@@ -75,6 +73,7 @@ function DashboardScreen({ navigation }) {
               key={category.id}
               title={category.name}
               subTitle={`Antall: ${category.number}`}
+              image={category.img}
               onPress={() =>
                 navigation.navigate("Signs", { slug: category.slug })
               }
