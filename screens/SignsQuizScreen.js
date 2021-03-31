@@ -242,13 +242,13 @@ function SignsQuizScreen({ navigation }) {
           <Screen style={styles.container}>
             <Eclips />
             <AppHeader title="Skilt test" />
-            <View style={styles.statsContainer}>
-              <AppText style={styles.stats}>Poeng: {score}</AppText>
-              <AppText style={styles.stats}>
-                {currentIndex + 1} av {questions.length}
-              </AppText>
-            </View>
             <View style={styles.questionContainer}>
+              <View style={styles.statsContainer}>
+                <AppText style={styles.stats}>Poeng: {score}</AppText>
+                <AppText style={styles.stats}>
+                  {currentIndex + 1} av {questions.length}
+                </AppText>
+              </View>
               <AppText style={styles.question}>
                 {questions[currentIndex] ? "Hva betyr dette skiltet?" : "loading"}
               </AppText>
@@ -354,14 +354,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 10,
-    borderRadius: 5,
-    marginTop: -10,
-    marginBottom: 10,
-    borderStartWidth: 3,
-    borderEndWidth: 3,
   },
   stats: {
-    fontWeight: "700",
+    // fontWeight: "700",
   },
   question: {
     fontWeight: "bold",
@@ -369,7 +364,7 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     backgroundColor: colors.white,
-    padding: 10,
+    padding: 5,
     width: "100%",
     alignItems: "center",
     borderTopStartRadius: 5,
@@ -378,22 +373,19 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    margin: 10,
+    margin: 5,
   },
   optionsContainer: {
     justifyContent: "center",
     width: "100%",
-    marginTop: 5,
   },
   resultContainer: {
-    backgroundColor: "orange",
     justifyContent: "center",
     width: "100%",
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginVertical: 5,
+    // marginVertical: 5,
     borderRadius: 5,
-    // height: 50
   },
   result: {
     textAlign: "center",
