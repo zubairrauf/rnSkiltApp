@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AppModal from '../components/AppModal'
 import colors from "../config/colors";
 
-function TipsBox({ color = "white", image, onPress, subTitle, title }) {
+function TipsBox({ color = "white", image, subTitle, title }) {
   const [ modalVisible, setModalVisible ] = useState(false)
   const handleClick = () => {
     setModalVisible(true)

@@ -2,7 +2,7 @@ export const tipsData = [
   {
     id: "1",
     title: "Regne ut bremselengde",
-    description: "Lær deg en enkel huskeregel for å regne ut bremselengen.",
+    description: "Lær deg enkele huskeregeler for å regne ut bremselengen.",
     img: require("../assets/images/tips/brakingdistance.png"),
   },
   {

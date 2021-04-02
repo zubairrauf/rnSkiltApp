@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
 import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
@@ -24,7 +24,6 @@ function TheoryTipsScreen({ navigation }) {
             title={tip.title}
             subTitle={tip.description}
             image={tip.img}
-            onPress={() => console.log("Tips")}
           />
         ))}
       </ScrollView>
