@@ -4,13 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { MySignsContext } from "../context/MySignsContext";
 import HomeNavigator from "./HomeNavigator";
+import TipsNavigator from "./TipsNavigator";
 import QuizNavigator from "./QuizNavigator";
-import DashboardScreen from "../screens/DashboardScreen";
-import SignsScreen from "../screens/SignsScreen";
 import MySignsScreen from "../screens/MySignsScreen";
-import TheoryTipsScreen from "../screens/TheoryTipsScreen";
-import SignsQuizScreen from "../screens/SignsQuizScreen";
-import QuizOverviewScreen from "../screens/QuizOverviewScreen";
 import colors from "../config/colors";
 import { SignsScoreContextProvider } from "../context/SignsScoreContext";
 
@@ -47,7 +43,7 @@ const AppNavigator = () => (
           }}
         >
           <Tab.Screen name="Forside" component={HomeNavigator} />
-          <Tab.Screen name="Tips" component={TheoryTipsScreen} />
+          <Tab.Screen name="Tips" component={TipsNavigator} />
           <Tab.Screen
             name="Mine skilter"
             component={MySignsScreen}

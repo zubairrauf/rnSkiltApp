@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import AppModal from '../components/AppModal'
 import colors from "../config/colors";
 
-function TipsBox({ color = "white", image, subTitle, title }) {
-  const [ modalVisible, setModalVisible ] = useState(false)
-  const handleClick = () => {
-    setModalVisible(true)
-  }
-
+function TipsBox({ color = "white", image, subTitle, title, onPress }) {
   return (
     <View>
-      <AppModal modalVisible={modalVisible} setModalVisible={setModalVisible} title={title}  description={subTitle} image={image}/>
       <TouchableOpacity
         style={[styles.box, { backgroundColor: colors[color] }]}
-        onPress={handleClick}
+        onPress={onPress}
       >
         <View style={styles.imageContainer}>
           <Image source={image} style={styles.image} />
