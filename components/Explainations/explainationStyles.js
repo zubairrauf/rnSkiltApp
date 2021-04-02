@@ -1,26 +1,8 @@
-import React from "react";
-import { View, Text, Image,  StyleSheet, ScrollView, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 
-import Eclips from "../components/Eclips";
-import Screen from "../components/Screen";
-import AppHeader from "../components/AppHeader";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
-import Explaination from "../components/Explainations/Explaination"
-
-function SingleTipsScreen({ route }) {
-  const theTip = route.params
-
-    return (
-      <Screen style={styles.container}>
-        <Eclips />
-        <AppHeader title="Teori tips" />
-          <Explaination tip = {theTip}/>
-      </Screen>
-    );
-  }
-
-  const styles = StyleSheet.create({
+export default styles = StyleSheet.create({
     container: {
       alignItems: 'center',
     },
@@ -65,5 +47,3 @@ function SingleTipsScreen({ route }) {
       fontWeight: '700',
     }
   })
-  export default SingleTipsScreen
-
