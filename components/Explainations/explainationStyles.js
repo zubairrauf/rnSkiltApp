@@ -18,7 +18,7 @@ export default styles = StyleSheet.create({
     mainImageContainer: {
       width: '100%',
       maxWidth: 350,
-      maxHeight: 250,
+      maxHeight: 200,
     },
     mainImage: {
       borderRadius: 5,
@@ -28,13 +28,15 @@ export default styles = StyleSheet.create({
     explaination: {
       fontSize: 16,
       lineHeight: 26,
-      marginVertical: 5,
+      marginTop: 3,
+      marginBottom: 5,
     },
     box: {
-      backgroundColor: colors.light,
-      borderTopWidth: 2,
-      borderBottomWidth: 2,
-      borderColor: colors.white,
+      backgroundColor: colors.accent,
+      borderRadius: 20,
+      // borderTopWidth: 2,
+      // borderBottomWidth: 2,
+      // borderColor: colors.white,
       padding: 10,
       marginVertical: 10,
       shadowColor: colors.dark,

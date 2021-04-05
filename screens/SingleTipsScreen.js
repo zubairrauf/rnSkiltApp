@@ -10,7 +10,6 @@ import Explaination from "../components/Explainations/Explaination"
 
 function SingleTipsScreen({ route }) {
   const theTip = route.params
-
     return (
       <Screen style={styles.container}>
         <Eclips />

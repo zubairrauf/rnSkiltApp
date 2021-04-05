@@ -1,6 +1,7 @@
 export default {
     primary: "#80D6B2", //Main background color
     secondary: "#B5E9D4", //Light background color
+    accent: "#d7eee4",
     black: "#000",
     white: "#fff",
     medium: "#6e6969",

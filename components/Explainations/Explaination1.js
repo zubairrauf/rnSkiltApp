@@ -42,6 +42,7 @@ function Explaination1({ tip }) {
               <AppText style={styles.explaination}> 
                 Og hva skal x være? Du tar farten og deler på 10.
               </AppText>
+              </View>
               <AppText style={styles.heading}> 
                 Eksempel:
               </AppText>
@@ -51,7 +52,6 @@ function Explaination1({ tip }) {
                 
                 Bremselengden er 21,1 meter
               </AppText>
-            </View>
           </View>
         </ScrollView>
     );
