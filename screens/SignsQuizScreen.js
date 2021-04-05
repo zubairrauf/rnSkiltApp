@@ -57,7 +57,7 @@ function SignsQuizScreen({ route, navigation }) {
   const [isRunning, setIsRunning] = useState(true);
 
   //Select random signs and put them in questions
-  let numberOfQuestions = 5;
+  let numberOfQuestions = 15;
   let randomQuestionIds = [];
 
   //Make random IDs on component mount
