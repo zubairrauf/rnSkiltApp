@@ -26,20 +26,26 @@ function RegisterScreen({ navigation }) {
   return (
     <Screen style={styles.container}>
         <Eclips />
-        <AppText style={styles.heading}>Velkommen om bord</AppText>
-        <AppText>Vennligst registrer deg</AppText>
-        <Image source={require('../assets/images/kid-with-car.png')} style={styles.image}/>
-        <AppTextInput 
-            icon="account" 
-            placeholder="Navn" value={name}
-            onChangeText={text => setName(text)}
-        />
-        <AppTextInput 
-            icon="email" 
-            placeholder="E-post adresse"
-            value={email}
-            onChangeText={text => setEmail(text)}
-        />
+        <View style={styles.headingsContainer}>
+            <AppText style={styles.heading}>Velkommen om bord</AppText>
+            <AppText>Vennligst registrer deg</AppText>
+        </View>
+        <View style={styles.imageContainer}>
+            <Image source={require('../assets/images/kid-with-car.png')} style={styles.image}/>
+        </View>
+        <View style={styles.inputContainer}>
+            <AppTextInput 
+                icon="account" 
+                placeholder="Navn" value={name}
+                onChangeText={text => setName(text)}
+            />
+            <AppTextInput 
+                icon="email" 
+                placeholder="E-post adresse"
+                value={email}
+                onChangeText={text => setEmail(text)}
+            />
+        </View>
         <View style={styles.button} >
             <AppButton 
                 title="Registrer" 
@@ -56,18 +62,35 @@ function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
       alignItems: 'center',
-      justifyContent: 'center'
-  },
-  heading: {
-      fontSize: 22,
-      fontWeight: '700'
-  },
-  image: {
-      width: 200,
-      height: 170
+      justifyContent: 'space-between'
+    },
+    headingsContainer: {
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      width: '100%',
+      flex: 1,
+    },
+    heading: {
+        fontSize: 22,
+        fontWeight: '700'
+    },
+    imageContainer: {
+        flex: 2,
+        justifyContent: 'center',
+    },
+    image: {
+        width: 200,
+        height: 170,
+    },
+    inputContainer: {
+    //   borderWidth: 1,
+      flex: 2,
+      justifyContent: "flex-start",
   },
   button: {
       width: '100%',
+      flex: 1,
+      justifyContent: 'flex-end',
   }
 });
 

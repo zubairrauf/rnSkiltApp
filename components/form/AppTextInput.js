@@ -31,7 +31,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
-    marginVertical: 10
+    marginVertical: 10,
+    shadowColor: defaultStyles.colors.dark,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.7,
+    elevation: 2,
   },
   icon: {
     marginRight: 10,
