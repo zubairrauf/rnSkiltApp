@@ -8,8 +8,6 @@ import AppText from "../components/AppText";
 import CategoryBox from "../components/CategoryBox";
 import TipsBox from "../components/TipsBox";
 import { tipsData } from "../data/tipsData";
-import Eclips from "../components/Eclips";
-import Screen from "../components/Screen";
 import colors from "../config/colors";
 import { categories } from '../data/categoriesData'
 
@@ -35,20 +33,24 @@ function DashboardScreen({ navigation }) {
 
   //Creating TipsBox for first few items in TipsData
   let tipsToDisplay = tipsData
-    .slice(0, 2)
+    .slice(-2)
     .map((tip) => (
       <TipsBox
         key={tip.id}
         title={tip.title}
         subTitle={tip.description}
         image={tip.img}
-        onPress={() => console.log("Tips")}
+        onPress={() => navigation.navigate("SingleTips", { 
+          id: tip.id, 
+          title: tip.title,
+          img: tip.img
+        })}
       />
     ));
 
   return (
     <View style={styles.container}>
-      <View style={styles.topSection}>
+    <View style={styles.topSection}>
         <View style={styles.textContainer}>
           <AppText style={styles.heading}>Hei {name} </AppText>
           <AppText style={styles.description}>
