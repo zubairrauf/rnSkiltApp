@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "skilt2",
-    "slug": "skilt2",
+    "name": "Kjør i vei",
+    "slug": "kjorivei",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/app/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/app/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/app/icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "no.zubairrauf.kjorivei"
