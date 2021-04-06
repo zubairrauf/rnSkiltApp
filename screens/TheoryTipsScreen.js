@@ -14,7 +14,7 @@ function TheoryTipsScreen({ navigation }) {
       <AppHeader title="Teori tips" />
       <ScrollView
         contentContainerStyle={styles.SignsScrollContainer}
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
         {tipsData.map((tip) => (
           <TipsBox

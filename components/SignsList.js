@@ -76,7 +76,7 @@ function SignsList({ slug, mySigns, setMySigns }) {
     }
     
   return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} >
         {signsToDisplay}
       </ScrollView>
   );
