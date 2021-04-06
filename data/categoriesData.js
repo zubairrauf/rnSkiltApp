@@ -4,35 +4,35 @@ export const categories = [
     name: "Fareskilt",
     slug: "danger",
     img: require("../assets/images/dangersigns/100_1.jpg"),
-    number: 16
+    number: 48
   },
   {
     id: "2",
     name: "Vikepliktsskilt",
     slug: "yield",
     img: require("../assets/images/yieldsigns/202_0.jpg"),
-    number: 25
+    number: 7
   },
   {
     id: "3",
     name: "Forbudsskilt",
     slug: "prohibition",
     img: require("../assets/images/prohibitionsigns/302_0.jpg"),
-    number: 15
+    number: 48
   },
   {
     id: "4",
     name: "Påbudsskilt",
     slug: "mandatory",
     img: require("../assets/images/mandatorysigns/402_1.jpg"),
-    number: 15
+    number: 12
   },
   {
     id: "5",
     name: "Opplysningsskilt",
     slug: "information",
     img: require("../assets/images/informationsigns/502_0.jpg"),
-    number: 15
+    number: 54
   },
   {
     id: "6",
