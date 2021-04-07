@@ -1,4 +1,4 @@
 export default {
-  name: "Kjør i vei", //Main background color
+  name: "Kjør i vei", 
   keyPrefix: "kiv",
 };

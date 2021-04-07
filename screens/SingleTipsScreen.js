@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, Image,  StyleSheet, ScrollView, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 
-import Eclips from "../components/Eclips";
-import Screen from "../components/Screen";
 import AppHeader from "../components/AppHeader";
 import colors from "../config/colors";
+import Eclips from "../components/Eclips";
+import Screen from "../components/Screen";
 
-import Explaination from "../components/Explainations/Explaination"
+import Explaination from "../components/explainations/Explaination"
 
 function SingleTipsScreen({ route }) {
   const theTip = route.params
@@ -14,7 +14,7 @@ function SingleTipsScreen({ route }) {
       <Screen style={styles.container}>
         <Eclips />
         <AppHeader title="Teori tips" />
-          <Explaination tip = {theTip}/>
+        <Explaination tip = {theTip}/>
       </Screen>
     );
   }
@@ -25,8 +25,8 @@ function SingleTipsScreen({ route }) {
     },
     titleContainer: {
       alignItems: 'center',
-      width: '100%',
       marginBottom: 10,
+      width: '100%',
     },
     title: {
       fontSize: 16,
@@ -64,5 +64,6 @@ function SingleTipsScreen({ route }) {
       fontWeight: '700',
     }
   })
+
   export default SingleTipsScreen
 

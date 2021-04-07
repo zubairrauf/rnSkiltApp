@@ -1,15 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { MySignsContext } from "../context/MySignsContext";
-import { SignsScoreContext } from "../context/SignsScoreContext";
 import AppText from "../components/AppText";
 import CategoryBox from "../components/CategoryBox";
-import TipsBox from "../components/TipsBox";
-import { tipsData } from "../data/tipsData";
 import colors from "../config/colors";
+import TipsBox from "../components/TipsBox";
 import { categories } from '../data/categoriesData'
+import { tipsData } from "../data/tipsData";
 
 function DashboardScreen({ navigation }) {
   const [name, setName] = useState();
@@ -19,7 +17,6 @@ function DashboardScreen({ navigation }) {
     try {
       const jsonValue = await AsyncStorage.getItem(key);
       const value = JSON.parse(jsonValue);
-      console.log(value);
       setName(value.name);
     } catch (error) {
       console.error(error);
@@ -50,9 +47,9 @@ function DashboardScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-    <View style={styles.topSection}>
+      <View style={styles.topSection}>
         <View style={styles.textContainer}>
-          <AppText style={styles.heading}>Hei {name} </AppText>
+          <AppText style={styles.heading}>Hei {name}</AppText>
           <AppText style={styles.description}>
             Les teoritips eller velg en kategori for å lære trafikkskilt. Ta
             tester for å se hvor mye du har lært.
@@ -90,7 +87,6 @@ function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
   },
   topSection: {
     flex: 1,

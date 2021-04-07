@@ -27,7 +27,7 @@
       "package": "no.zubairrauf.kjorivei"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/app/favicon.png"
     }
   }
 }

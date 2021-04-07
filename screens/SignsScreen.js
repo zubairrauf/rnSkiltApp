@@ -1,17 +1,15 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { MySignsContext } from "../context/MySignsContext";
+import AppHeader from "../components/AppHeader";
 import Eclips from "../components/Eclips";
+import { MySignsContext } from "../context/MySignsContext";
 import Screen from "../components/Screen";
 import SignsList from "../components/SignsList";
-import AppHeader from "../components/AppHeader";
-import AppButton from "../components/AppButton";
 
 function SignsScreen({ route }) {
-  console.log("Route: ", route);
   return (
-    <Screen style={styles.container}>
+    <Screen>
       <Eclips />
       <AppHeader title={route.params.slug} />
       <MySignsContext.Consumer>
@@ -26,9 +24,5 @@ function SignsScreen({ route }) {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export default SignsScreen;

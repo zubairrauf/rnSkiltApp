@@ -14,7 +14,6 @@ const SignsScoreContextProvider = ({ children }) => {
       const jsonValue = await AsyncStorage.getItem("kivSignsScore");
       const parsedValue = jsonValue !== null ? JSON.parse(jsonValue) : null;
       if (parsedValue !== null) {
-        console.log("SignsScore from AsyncStorage", parsedValue);
         setSignsScore(parsedValue);
       } else {
         console.log("parsedvalue null", parsedValue);
@@ -28,7 +27,6 @@ const SignsScoreContextProvider = ({ children }) => {
   //Save signsScore on state change
   useEffect(() => {
     storeSignsScore(signsScore);
-    console.log("storeSignsScore ran", signsScore);
   }, [signsScore]);
 
   //Store signsScore array in AsyncStorage
@@ -36,7 +34,6 @@ const SignsScoreContextProvider = ({ children }) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("kivSignsScore", jsonValue);
-      console.log("Yippi", jsonValue);
     } catch (error) {
       console.log(error);
     }

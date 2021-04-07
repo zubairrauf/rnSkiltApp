@@ -107,7 +107,6 @@ function SignsQuizScreen({ route, navigation }) {
           currentIndex,
         ]);
         setScore((prevScore) => prevScore + 1);
-        console.log("CorrectIndex: ", correctIndex);
       } else {
         setIncorrectIndex((prevIncorrectIndex) => [
           ...prevIncorrectIndex,
@@ -234,14 +233,6 @@ function SignsQuizScreen({ route, navigation }) {
       });
     }
   };
-
-  //TODO: Figure out where to use handleDisableButton
-  //   const handleDisableButton = () => {
-  //     if(currentIndex === 0) setPreviousButtonDisabled(true)
-  //     else setPreviousButtonDisabled(false)
-  //     if(currentIndex -1 < questions.length) setNextButtonDisabled(false)
-  //     else setNextButtonDisabled(true)
-  //   }
 
   return (
     <Screen style={styles.container}>
@@ -395,14 +386,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 5,
     borderRadius: 5,
-    // height: 50
   },
   result: {
     textAlign: "center",
   },
   explainationContainer: {
     flex: 1,
-    // padding: 10,
   },
   explaination: {
     fontSize: 14,

@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AppButton from '../components/AppButton'
 import AppText from '../components/AppText'
+import AppTextInput from '../components/form/AppTextInput'
 import Eclips from '../components/Eclips'
 import Screen from '../components/Screen'
-import AppTextInput from '../components/form/AppTextInput'
-
 
 function RegisterScreen({ navigation }) {
     const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
     
     //Storing data in asyncStorage
     const storeData = async (value) => {
@@ -39,18 +37,12 @@ function RegisterScreen({ navigation }) {
                 placeholder="Navn" value={name}
                 onChangeText={text => setName(text)}
             />
-            <AppTextInput 
-                icon="email" 
-                placeholder="E-post adresse"
-                value={email}
-                onChangeText={text => setEmail(text)}
-            />
         </View>
         <View style={styles.button} >
             <AppButton 
                 title="Registrer" 
                 onPress={() => {
-                    storeData({name, email})
+                    storeData({ name })
                     navigation.navigate("Dashboard")
                 }}
             />
@@ -83,7 +75,6 @@ const styles = StyleSheet.create({
         height: 170,
     },
     inputContainer: {
-    //   borderWidth: 1,
       flex: 2,
       justifyContent: "flex-start",
   },

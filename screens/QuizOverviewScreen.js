@@ -5,13 +5,13 @@ import {
   BarChart,
 } from "react-native-chart-kit";
 
-import { SignsScoreContext } from "../context/SignsScoreContext";
-import colors from "../config/colors";
 import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
 import AppHeader from "../components/AppHeader";
+import AppText from "../components/AppText";
+import colors from "../config/colors";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
+import { SignsScoreContext } from "../context/SignsScoreContext";
 
 function QuizOverviewScreen({ navigation }) {
   const deviceWidth = Dimensions.get("window").width;
@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: {
-    // flex: 1,
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",

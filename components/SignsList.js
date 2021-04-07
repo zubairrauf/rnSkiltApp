@@ -8,7 +8,6 @@ import AppListItem from '../components/AppListItem'
 function SignsList({ slug, mySigns, setMySigns }) {
     //Save Signs in AsynStorage on state change
     useEffect(() => {
-        console.log('My Signs', mySigns)
         storeSigns(mySigns)
     }, [mySigns])
 

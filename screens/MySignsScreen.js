@@ -1,13 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import { MySignsContext } from "../context/MySignsContext";
-import Eclips from "../components/Eclips";
-import Screen from "../components/Screen";
-import SignsList from "../components/SignsList";
 import AppHeader from "../components/AppHeader";
 import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
+import Eclips from "../components/Eclips";
+import { MySignsContext } from "../context/MySignsContext";
+import Screen from "../components/Screen";
+import SignsList from "../components/SignsList";
 
 function SignsScreen() {
   return (

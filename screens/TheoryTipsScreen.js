@@ -9,7 +9,7 @@ import { tipsData } from "../data/tipsData";
 
 function TheoryTipsScreen({ navigation }) {
   return (
-    <Screen style={styles.container}>
+    <Screen>
       <Eclips />
       <AppHeader title="Teori tips" />
       <ScrollView
@@ -37,10 +37,6 @@ function TheoryTipsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
   heading: {
     fontSize: 22,
     fontWeight: "700",
