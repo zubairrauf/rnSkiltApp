@@ -5,7 +5,6 @@ import AppHeader from "../components/AppHeader";
 import colors from "../config/colors";
 import Eclips from "../components/Eclips";
 import Screen from "../components/Screen";
-
 import Explaination from "../components/explainations/Explaination"
 
 function SingleTipsScreen({ route }) {

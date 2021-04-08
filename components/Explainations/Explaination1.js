@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Image, ScrollView, } from "react-native";
 
-
 import AppText from "../AppText"
 import styles from "./explainationStyles"
 

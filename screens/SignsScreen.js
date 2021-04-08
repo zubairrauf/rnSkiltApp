@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import AppHeader from "../components/AppHeader";
 import Eclips from "../components/Eclips";

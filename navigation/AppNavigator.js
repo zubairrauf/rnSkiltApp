@@ -29,8 +29,6 @@ const AppNavigator = () => (
               } else if (route.name === "Test") {
                 iconName = focused ? "trail-sign-sharp" : "trail-sign-outline";
               }
-
-              // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
           })}

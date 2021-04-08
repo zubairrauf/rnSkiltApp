@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { signsData } from '../data/signsData'
@@ -33,11 +33,6 @@ function SignsList({ slug, mySigns, setMySigns }) {
         }
     }
 
-    //Handle onPress for Items
-    const handleItemPress = (item) => {
-        console.log('Item pressed Yippi', item)
-    }
-
     //If slug is mySigns, generate a list of saved sings
     let signsToDisplay = []
     if(slug==='mySigns') {
@@ -51,7 +46,6 @@ function SignsList({ slug, mySigns, setMySigns }) {
                         image={sign.img}
                         icon = {mySigns.indexOf(sign.id) < 0 ? 'plus' : 'minus'}
                         onPress={() => handleOnPress(sign.id)} //For + icon
-                        onItemPress={() => handleItemPress(sign.id)} //For item itself
                     />
                 );
             }
@@ -80,9 +74,5 @@ function SignsList({ slug, mySigns, setMySigns }) {
       </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {}
-});
 
 export default SignsList;

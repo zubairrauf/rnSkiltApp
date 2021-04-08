@@ -28,7 +28,7 @@ function DashboardScreen({ navigation }) {
     getName("kivName");
   }, []);
 
-  //Creating TipsBox for first few items in TipsData
+  //Creating TipsBox for last few items in TipsData
   let tipsToDisplay = tipsData
     .slice(-2)
     .map((tip) => (
