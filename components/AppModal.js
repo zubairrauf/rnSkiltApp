@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   },
   modalDescription: {
     textAlign: "left",
+    lineHeight: 18,
     marginTop: 10,
     marginBottom: 15,
   },
